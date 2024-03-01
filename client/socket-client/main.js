@@ -57,3 +57,38 @@ function updateChat(data) {
   li.innerText = `${data.userId} - ${data.message}`;
   chatList.appendChild(li);
 }
+
+
+
+// ------------------------ REGISTER NEW USER -------------------------------- //
+
+document.addEventListener('DOMContentLoaded', () => {
+  const registrationForm = document.getElementById('newUser');
+  const loginForm = document.getElementById('loginForm');
+
+  if (registrationForm) {
+      registrationForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          const username = document.getElementById('regUsername').value;
+          const password = document.getElementById('regPassword').value;
+          const user = {
+              username: username,
+              password: password
+          };
+
+          saveUser(user);
+          registrationForm.reset();
+      });
+  }
+
+  function saveUser(user) {
+      if (localStorage) {
+          const userData = JSON.stringify(user);
+          localStorage.setItem('user', userData);
+          console.log('User saved successfully');
+      } else {
+          console.log('Error!');
+      }
+  }
+});
