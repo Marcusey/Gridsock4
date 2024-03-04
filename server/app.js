@@ -1,3 +1,5 @@
+const mysql = require("mysql2");  
+
 const { log } = require('console');
 
 const app = require('express')();
@@ -10,6 +12,14 @@ const io = require('socket.io')(server, {
         methods: ['GET', 'POST']
     }
 })
+
+app.locals.con = mysql.createConnection({  
+    host: "localhost",  
+    port: "3306",               // portens nr står i databasen högst upp
+    user: "gridsock4",  
+    password: "gridsock4",  
+    database: "gridsock4"  
+});  
 
 // Skapa en enkel express-rutt för att visa att servern är igång
 app.get('/test', (req, res) => {

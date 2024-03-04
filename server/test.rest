@@ -1,0 +1,31 @@
+
+// SKAPA USER
+POST http://localhost:3000/gridsock4/users
+Content-Type: application/json
+
+{
+  "name": "Bella",
+  "password": "test"
+}
+
+###
+
+
+// HÄMTA USERS
+
+GET http://localhost:3000/users
+
+
+###
+
+
+// LOGGA IN USER // VID FEL LÖSENORD SÅ SKALL SVARA MED 401
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "name": "Carina",
+  "password": "hajj"
+}
+
+###
