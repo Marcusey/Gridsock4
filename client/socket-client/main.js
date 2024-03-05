@@ -4,6 +4,7 @@ import { io } from 'socket.io-client';
 //Skapa en socket-anslutning till servern
 const socket = io('http://localhost:3000');
 
+let signupForm = document.querySelector('#signupForm');
 let sendMessage = document.querySelector('#sendMessage');
 let sendBtn = document.querySelector('#sendBtn');
 let chatList = document.querySelector('#chatList');
@@ -12,7 +13,45 @@ let roomNameInput = document.querySelector('#roomName');
 let roomList = document.querySelector('#roomList');
 let chatSection = document.querySelector('#chatSection');
 
+
 let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
+
+function printSignup() {
+  if (localStorage.getItem('user')) {
+    signupForm.style.display = 'none';
+    return;
+  }
+  signupForm.innerHTML = '';
+
+  let signupName = document.createElement('input');
+  signupName.placeholder = 'Name';
+  let signupPassword = document.createElement('input');
+  signupPassword.type = 'password';
+  signupPassword.placeholder = 'Password';
+  let signupBtn = document.createElement('button');
+  signupBtn.innerText = 'Sign Up';
+
+  signupBtn.addEventListener('click', () => {
+    let sendNewUser = {
+      name: signupName.value,
+      password: signupPassword.value,
+    };
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendNewUser),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+  })
+  signupForm.append(signupName, signupPassword, signupBtn);
+}
+
+printSignup();
 
 // Lägg till en händelselyssnare för att skapa ett rum när knappen klickas på
 createRoomBtn.addEventListener('click', () => {
