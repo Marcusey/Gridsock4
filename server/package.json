@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "gridsock4",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -15,8 +15,8 @@
     "socket.io": "^4.7.4"
   },
   "main": "app.js",
-  "devDependencies": {},
-  "author": "",
+  "author": "gridsock4",
   "license": "ISC",
+  "devDependencies": {},
   "description": ""
 }
