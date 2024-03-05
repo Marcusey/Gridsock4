@@ -1,16 +1,22 @@
 {
-  "name": "socket",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "name": "gridsock4",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "^4.18.3",
+    "morgan": "~1.9.1",
+    "mysql2": "^3.9.2",
+    "socket.io": "^4.7.4"
+  },
+  "main": "app.js",
   "author": "gridsock4",
   "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "socket.io": "^4.7.4"
-  }
+  "devDependencies": {},
+  "description": ""
 }
