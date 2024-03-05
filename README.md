@@ -9,9 +9,8 @@ npm run dev
 - npx nodemon start  
 
 
-
 ## Installationer servern🔧
-- Express
+- Express generator
 - Socket.io
 - Cors
 - Crypto JS
