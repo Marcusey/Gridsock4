@@ -5,6 +5,7 @@ import { io } from 'socket.io-client';
 const socket = io('http://localhost:3000');
 
 let signupForm = document.querySelector('#signupForm');
+let loginForm = document.querySelector('#loginForm');
 let sendMessage = document.querySelector('#sendMessage');
 let sendBtn = document.querySelector('#sendBtn');
 let chatList = document.querySelector('#chatList');
@@ -59,6 +60,49 @@ function printSignup() {
 }
 
 printSignup();
+
+// --------------------- LOGIN USER ------------------------- //
+
+function printLoginForm() {
+
+  let inputName = document.createElement('input');
+  inputName.placeholder = 'Name';
+  let inputPassword = document.createElement('input');
+  inputPassword.placeholder = 'Password';
+  inputPassword.type = 'password';
+  let loginBtn = document.createElement('button');
+  loginBtn.innerText = 'Log in';
+
+  loginBtn.addEventListener('click', () => {
+    let sendUser = {
+      name: inputName.value,
+      password: inputPassword.value,
+    };
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendUser),
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Login failed');
+      }
+    })
+    .then(data => {
+      console.log(data.message);
+    })
+    .catch(error => {
+      console.error('Login error:', error);
+    })
+  })
+  loginForm.append(inputName, inputPassword, loginBtn);
+}
+
+printLoginForm();
 
 
 // --------------------- END SIGNUP FORM ----------------------------------- //
@@ -150,41 +194,6 @@ function updateChat(data) {
   // Visa meddelandet på användargränssnittet
   chatList.appendChild(li);
 }
-
-// --------------------- LOGIN USER ------------------------- //
-
-document.getElementById('loginBtn').addEventListener('click', () => {
-  var userName = document.getElementById('userName').value;
-  var password = document.getElementById('password').value;
-
-  var encryptedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
-
-  var data = {
-      name: userName,
-      password: encryptedPassword
-  };
-
-  fetch('/login', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-  })
-  .then(response => {
-      if (response.ok) {
-          return response.json();
-      } else {
-          throw new Error('Login failed');
-      }
-  })
-  .then(data => {
-      console.log(data.message); 
-   })
-  .catch(error => {
-      console.error('Login error:', error);
-  });
-});
 
 // -------------------------- RUTNÄT ----------------------------//
 
