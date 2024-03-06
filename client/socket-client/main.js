@@ -62,11 +62,28 @@ printSignup();
 createRoomBtn.addEventListener('click', () => {
   const roomName = roomNameInput.value.trim();
   if (roomName !== '') {
-    currentRoom = roomName; // Sätt det aktuella rummet
-    socket.emit('joinRoom', currentRoom); // Skicka meddelande till servern om att ansluta till rummet
-    chatSection.style.display = 'block'; // Visa chatten på användargränssnittet
+      // Skapa en länk för det nya rummet
+      const roomLink = document.createElement('a');
+      roomLink.href = '#'; // Länken kommer inte att leda någonstans för nu
+      roomLink.innerText = roomName;
+      roomLink.addEventListener('click', () => {
+          // När länken klickas, sätt det aktuella rummet och visa chatten
+          currentRoom = roomName;
+          chatSection.style.display = 'block';
+          socket.emit('switchRoom', currentRoom);
+      });
+
+      // Lägg till länken till rumlistan
+      roomList.appendChild(roomLink);
+
+      // Återställ inputfältet
+      roomNameInput.value = '';
+
+      // Meddela servern att användaren har skapat ett nytt rum
+      socket.emit('createRoom', roomName);
   }
 });
+
 
 sendBtn.addEventListener('click', () => {
   if (currentRoom) {
@@ -89,13 +106,25 @@ socket.on('roomList', (rooms) => {
   updateRoomList(rooms);
 });
 
+socket.on('switchRoom', (newRoom) => {
+  socket.leave(currentRoom);
+  socket.join(newRoom);
+  currentRoom = newRoom;
+});
+
 // Funktion för att uppdatera rumlistan på användargränssnittet
 function updateRoomList(rooms) {
   roomList.innerHTML = '';
   rooms.forEach((room) => {
-    let li = document.createElement('li');
-    li.innerText = room;
-    roomList.appendChild(li);
+    let roomLink = document.createElement('a');
+    roomLink.href = '#';
+    roomLink.innerText = room;
+    roomLink.addEventListener('click', () => {
+      currentRoom = room;
+      chatSection.style.display = 'block';
+      socket.emit('joinRoom', room);
+    });
+    roomList.appendChild(roomLink);
   });
 }
 
