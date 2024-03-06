@@ -45,6 +45,11 @@ function printSignup() {
     })
     .then((res) => res.json())
     .then((data) => {
+      alert('User created successfully!')
+
+      signupName.value = '';
+      signupPassword.value = '';
+      
       console.log(data);
     })
   })
