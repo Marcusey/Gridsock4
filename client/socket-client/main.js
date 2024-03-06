@@ -159,7 +159,6 @@ document.getElementById('loginBtn').addEventListener('click', () => {
 
 // -------------------------- RUTNÄT ----------------------------//
 
-
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -169,6 +168,13 @@ const rows = 15;
 const cols = 15;
 const cellWidth = width / cols;
 const cellHeight = height / rows;
+canvas.addEventListener('click', function(event) {
+  const clickedRow = Math.floor(event.offsetY / cellHeight);
+  const clickedCol = Math.floor(event.offsetX / cellWidth);
+
+  ctx.fillStyle = 'black';
+  ctx.fillRect(clickedCol * cellWidth, clickedRow * cellHeight, cellWidth, cellHeight);
+});
 
 for (let i = 0; i <= rows; i++) {
   ctx.moveTo(0, i * cellHeight);
