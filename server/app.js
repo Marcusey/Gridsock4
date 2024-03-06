@@ -7,6 +7,7 @@ const server = require("http").createServer(app);
 var express = require('express');
 let cors = require("cors");
 const mysql = require("mysql2"); 
+const CryptoJS = require("crypto-js");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -95,11 +96,14 @@ function getRandomColor() {
   return color;
 }
 
-
+// --------------------- TESTAR SERVERN -------------------------- //
 app.get('/test', (req, res) => {
 
     res.send('<h1>Socket</h1>');
 });
+
+
+// ---------------------- HÄMTA ALLA ANVÄNDARE ----------------------- //
 
 app.get('/all-users', (req, res) => {
     connection.connect((err) => {
@@ -117,12 +121,15 @@ app.get('/all-users', (req, res) => {
     })
 });
 
+// ---------------------- SKAPA ANVÄNDARE ---------------------------- //
+
 app.post('/users', (req, res) => {
     const { name, password } = req.body;
+    const encryptedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
 
     const sql = 'INSERT INTO users (name, password) VALUES (?, ?)';
 
-    connection.query(sql, [name, password], (err, result) => {
+    connection.query(sql, [name, encryptedPassword], (err, result) => {
         if (err) {
             console.log('err', err);
             res.status(500).json({error: 'Server error'});
@@ -133,23 +140,29 @@ app.post('/users', (req, res) => {
     })
 });
 
+// ---------------------- LOGGA IN ANVÄNDARE --------------------------- //
+
 app.post('/login', (req, res) => {
     const { name, password } = req.body;
-
+    const encryptedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
+    
     const sql = 'SELECT * FROM users WHERE name = ? AND password = ?';
 
-    connection.query(sql, [name, password], (err, result) => {
+    connection.query(sql, [name, encryptedPassword], (err, result) => {
         if (err) {
             console.log('err', err);
             res.status(500).json({error: 'Server error'});
         } else {
             if (result.length > 0) {
-                const name = result[0];
-                res.json({message: 'Login successful', name: name.name});
+                const user = result[0];
+                res.json({message: 'Login successful', name: user.name});
+            } else {
+                res.status(401).json({error: 'Login failed'});
             }
         }
-    })
+    });
 });
+
 
 module.exports = app;
 server.listen(3000);

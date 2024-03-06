@@ -1,4 +1,4 @@
-# Gridsock4 - 
+# Gridsock4
 
 
 ## För att starta klienten, skriv i terminalen i client\socket-client:
@@ -8,13 +8,11 @@ npm run dev
 - npm i mysql2  
 - npx nodemon start  
 
-
 ## Installationer servern🔧
 - Express generator
 - Socket.io
 - Cors
 - Crypto JS
-
 
 ## Installationer i Frontend (client) 🔧
 - VITE
@@ -22,9 +20,6 @@ npm run dev
 
 ### Öppna clientsidan i webbläsaren:
 http://localhost:5173/
-
-
-
 
 
 
