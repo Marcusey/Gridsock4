@@ -16,6 +16,8 @@ let chatSection = document.querySelector('#chatSection');
 
 let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
 
+
+// ------------------- SIGNUP FORM ----------------------------- //
 function printSignup() {
   if (localStorage.getItem('user')) {
     signupForm.style.display = 'none';
@@ -57,6 +59,9 @@ function printSignup() {
 }
 
 printSignup();
+
+
+// --------------------- END SIGNUP FORM ----------------------------------- //
 
 // Lägg till en händelselyssnare för att skapa ett rum när knappen klickas på
 createRoomBtn.addEventListener('click', () => {
@@ -146,36 +151,72 @@ function updateChat(data) {
   chatList.appendChild(li);
 }
 
+// --------------------- LOGIN USER ------------------------- //
 
-// ------------------------ REGISTER NEW USER -------------------------------- //
+document.getElementById('loginBtn').addEventListener('click', () => {
+  var userName = document.getElementById('userName').value;
+  var password = document.getElementById('password').value;
 
-document.addEventListener('DOMContentLoaded', () => {
-  const registrationForm = document.getElementById('newUser');
-  const loginForm = document.getElementById('loginForm');
+  var encryptedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
 
-  if (registrationForm) {
-      registrationForm.addEventListener('submit', (event) => {
-          event.preventDefault();
+  var data = {
+      name: userName,
+      password: encryptedPassword
+  };
 
-          const username = document.getElementById('regUsername').value;
-          const password = document.getElementById('regPassword').value;
-          const user = {
-              username: username,
-              password: password
-          };
-
-          saveUser(user);
-          registrationForm.reset();
-      });
-  }
-
-  function saveUser(user) {
-      if (localStorage) {
-          const userData = JSON.stringify(user);
-          localStorage.setItem('user', userData);
-          console.log('User saved successfully');
+  fetch('/login', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => {
+      if (response.ok) {
+          return response.json();
       } else {
-          console.log('Error!');
+          throw new Error('Login failed');
       }
-  }
+  })
+  .then(data => {
+      console.log(data.message); 
+   })
+  .catch(error => {
+      console.error('Login error:', error);
+  });
 });
+
+// -------------------------- RUTNÄT ----------------------------//
+
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+const width = canvas.width;
+const height = canvas.height;
+const rows = 15;
+const cols = 15;
+const cellWidth = width / cols;
+const cellHeight = height / rows;
+canvas.addEventListener('click', function(event) {
+  const clickedRow = Math.floor(event.offsetY / cellHeight);
+  const clickedCol = Math.floor(event.offsetX / cellWidth);
+
+  ctx.fillStyle = 'black';
+  ctx.fillRect(clickedCol * cellWidth, clickedRow * cellHeight, cellWidth, cellHeight);
+});
+
+for (let i = 0; i <= rows; i++) {
+  ctx.moveTo(0, i * cellHeight);
+  ctx.lineTo(width, i * cellHeight);
+}
+
+for (let j = 0; j <= cols; j++) {
+  ctx.moveTo(j * cellWidth, 0);
+  ctx.lineTo(j * cellWidth, height);
+}
+
+ctx.strokeStyle = 'black';
+ctx.stroke();
+
+// -------------------------- SLUT RUTNÄT ----------------------------//
+
