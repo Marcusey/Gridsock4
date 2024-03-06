@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
   <title>Chat Rooms</title>
 </head>
 <body>
 
-  <div id="signupForm"></div>
+  
 
   <!-- <div id="registrationSection">  
     
@@ -22,6 +23,18 @@
     </form>
   </div> -->
 
+<div id="loginUser">
+  <label for="name">Name</label>
+  <input type="text" id="userName"><br>
+  <label for="password">Password</label>
+  <input type="password" id="password"><br>
+  <button id="loginBtn">Login</button>
+</div>  
+
+<br>
+
+
+<div id="signupForm"></div>
   <div>
     <label for="roomName">Enter Room Name:</label>
     <input type="text" id="roomName" />
@@ -37,7 +50,9 @@
     <input type="text" id="sendMessage" />
     <button id="sendBtn">Send</button>
     <ul id="chatList"></ul>
-  </div>
+</div>
+
+<canvas id="myCanvas" class="canvas" width="500" height="500"></canvas>
 
   <script type="module" src="/main.js"></script>
 </body>
