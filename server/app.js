@@ -48,6 +48,7 @@ io.on("connection", (socket) => {
   io.emit("roomList", Array.from(activeRooms));
   console.log("connection", socket);
 
+<<<<<<< Updated upstream
   let user;
 
   socket.on('login', (userName) => {
@@ -57,6 +58,14 @@ io.on("connection", (socket) => {
         activeUsers.set(userName, user);
         console.log(`${user.name} logged in with socket.id: ${socket.id}`);
         socket.emit('loggedIn', { name: user.name });
+=======
+  socket.on('login', (userName) => {
+    getUserFromDatabase(userName, (user) => {
+      if (user) {
+        activeUsers.set(socket.id, { name: user.name, id: socket.id });
+  
+        console.log(`${user.name} logged in with socket.id: ${socket.id}`);
+>>>>>>> Stashed changes
       } else {
         console.error(`User ${userName} not found in the database.`);
       }
@@ -126,11 +135,15 @@ socket.on('createRoom', (room) => {
         room: data.room,
         userId: user.name,
         color: user.color,
+<<<<<<< Updated upstream
       });    
+=======
+      });
+>>>>>>> Stashed changes
     } else {
         console.error(`User ${socket.id} not found in activeUsers map.`);
     }
-});
+  });
   
 
   // Händelse när en användare kopplar från
@@ -142,7 +155,7 @@ socket.on('createRoom', (room) => {
         activeUsers.delete(socket.id); // Ta bort användaren från aktiv användarlista vid frånkoppling
         io.emit('roomList', Array.from(activeRooms));
     }
-});
+  });
   // Skicka uppdaterad rumlista till den nyligen anslutna klienten
   socket.emit("roomList", Array.from(activeRooms));
 });
