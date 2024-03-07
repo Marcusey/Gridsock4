@@ -48,7 +48,7 @@ Bilderna kan vara intingen “pixelererade” bilder på riktiga bilder. Eller h
 
 ## Inlämning:
 
-När ni skapar ert repo på github för projetet bjud även in mig “Kemikal” till repot.
+När ni skapar ert repo på github för projektet bjud även in mig “Kemikal” till repot.
 
 ### Fredag 15 mars 
 kommer alla grupper att få en presentationstid där ni skall demonstrera ert arbete och live visa hur långt ni har kommit. 

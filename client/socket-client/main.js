@@ -13,6 +13,12 @@ let roomNameInput = document.querySelector('#roomName');
 let roomList = document.querySelector('#roomList');
 let chatSection = document.querySelector('#chatSection');
 
+const startGameBtn = document.querySelector('#startGameBtn');
+
+/* Lägg in funktion till att starta spelet efter 'click', */
+startGameBtn.addEventListener('click');
+
+
 
 let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
 
@@ -62,6 +68,9 @@ printSignup();
 
 
 // --------------------- END SIGNUP FORM ----------------------------------- //
+
+
+
 
 // Lägg till en händelselyssnare för att skapa ett rum när knappen klickas på
 createRoomBtn.addEventListener('click', () => {
