@@ -48,12 +48,15 @@ io.on("connection", (socket) => {
   io.emit("roomList", Array.from(activeRooms));
   console.log("connection", socket);
 
-  socket.on('login', (userName) => {
-    getUserFromDatabase(userName, (user) => {
-      if (user) {
-        activeUsers.set(socket.id, { name: user.name, id: socket.id });
+  let user;
 
+  socket.on('login', (userName) => {
+    getUserFromDatabase(userName, (userData) => {
+      if (userData) {
+        user = { name: userData.name, id: socket.id };
+        activeUsers.set(userName, user);
         console.log(`${user.name} logged in with socket.id: ${socket.id}`);
+        socket.emit('loggedIn', { name: user.name });
       } else {
         console.error(`User ${userName} not found in the database.`);
       }
@@ -116,7 +119,6 @@ socket.on('createRoom', (room) => {
   socket.on('chat', (data) => {
     console.log('incoming chat', data);
 
-    const user = activeUsers.get(socket.id);
 
     if (user) {
       io.to(data.room).emit('chat', {
