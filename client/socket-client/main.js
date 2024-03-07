@@ -192,12 +192,18 @@ createRoomBtn.addEventListener('click', () => {
 
 sendBtn.addEventListener('click', () => {
   if (currentRoom) {
-    const message = sendMessage.value;
-    // Skicka chattmeddelande till servern
-    socket.emit('chat', { room: currentRoom, message });
-    sendMessage.value = ''; // Återställ inputfältet
+    const message = sendMessage.value.trim();
+    if (message !== '') {
+      // Skicka chattmeddelandet till servern
+      socket.emit('chat', { room: currentRoom, message });
+      sendMessage.value = ''; // Återställ inputfältet
+    } else {
+      // Visa en varning om det är tomt
+      alert('Please type something first.');
+    }
   }
 });
+
 
 // Uppdaterar chattlistan när ett chattmeddelande tas emot från servern
 socket.on('chat', (data) => {
@@ -233,23 +239,46 @@ function updateRoomList(rooms) {
   });
 }
 
+// Create an object to store messages for each room
+const roomMessages = {};
+
 // Funktion för att uppdatera chattlistan på användargränssnittet
 function updateChat(data) {
-  // Skapa en li för varje meddelande
-  let li = document.createElement('li');
+  const { room, userId, message, color } = data;
 
-  // Om det är ett meddelande om att en användare har lämnat chatten
-  if (data.message.includes('left the room')) {
-    // Använd röd färg för meddelandet om användaren lämnar
-    li.innerHTML = `<span style="color: ${data.color};">${data.userId}</span> - <span style="color: red;">${data.message}</span>`;
-  } else {
-    // Annars, använd användarens färg för användarens ID och svart för meddelandetexten
-    li.innerHTML = `<span style="color: ${data.color};">${data.userId}</span> - ${data.message}`;
+  // Check if the roomMessages object has a property for the current room
+  if (!roomMessages[room]) {
+    roomMessages[room] = [];
   }
 
-  // Visa meddelandet på användargränssnittet
-  chatList.appendChild(li);
+  // Add the message to the room-specific messages array
+  roomMessages[room].push({ userId, message, color });
+
+  // Keep only the latest 8 messages for the current room
+  if (roomMessages[room].length > 8) {
+    roomMessages[room].shift(); // Remove the oldest message
+  }
+
+  // Clear the chatList and append messages only for the current room
+  chatList.innerHTML = '';
+  roomMessages[currentRoom].forEach((msgData) => {
+    let li = document.createElement('li');
+    if (msgData.message.includes('left the room')) {
+      li.innerHTML = `<span style="color: ${msgData.color};">${msgData.userId}</span> - <span style="color: red;">${msgData.message}</span>`;
+    } else {
+      li.innerHTML = `<span style="color: ${msgData.color};">${msgData.userId}</span> - ${msgData.message}`;
+    }
+    chatList.appendChild(li);
+  });
 }
+
+socket.on('switchRoom', (newRoom) => {
+  // Leave current room and join new room
+  socket.leave(currentRoom);
+  socket.join(newRoom);
+  currentRoom = newRoom;
+});
+
 
 // -------------------------------- RUTNÄT ----------------------------------//
 
