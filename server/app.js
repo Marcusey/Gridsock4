@@ -48,6 +48,36 @@ io.on("connection", (socket) => {
   io.emit("roomList", Array.from(activeRooms));
   console.log("connection", socket);
 
+  socket.on('login', (userName) => {
+    getUserFromDatabase(userName, (user) => {
+      if (user) {
+        activeUsers.set(socket.id, { name: user.name, id: socket.id });
+
+        console.log(`${user.name} logged in with socket.id: ${socket.id}`);
+      } else {
+        console.error(`User ${userName} not found in the database.`);
+      }
+    })
+  });
+
+  function getUserFromDatabase(userName, callback) {
+    let query = 'SELECT * FROM users WHERE name = ?';
+    connection.query(query, [userName], (err, results) => {
+      if (err) {
+        console.error('Database error:', err);
+        callback(null);
+        return;
+      }
+
+      if (results.length > 0) {
+        const user = results[0];
+        callback(user);
+      } else {
+        callback(null);
+      }
+    });
+  }
+
   // Händelse när en användare går med i ett rum
   socket.on('joinRoom', (room) => {
     socket.join(room); // Anslut användaren till rummet
@@ -89,7 +119,12 @@ socket.on('createRoom', (room) => {
     const user = activeUsers.get(socket.id);
 
     if (user) {
-        io.to(data.room).emit('chat', { message: data.message, room: data.room, userId: socket.id, color: user.color });
+      io.to(data.room).emit('chat', {
+        message: data.message,
+        room: data.room,
+        userId: user.name,
+        color: user.color,
+      });    
     } else {
         console.error(`User ${socket.id} not found in activeUsers map.`);
     }
