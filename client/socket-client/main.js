@@ -14,8 +14,10 @@ let roomNameInput = document.querySelector('#roomName');
 let roomList = document.querySelector('#roomList');
 let chatSection = document.querySelector('#chatSection');
 
-
 let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
+
+  createRoomBtn.style.marginTop = '3px';
+  createRoomBtn.style.marginBottom = '15px';
 
 
 // ------------------- SIGNUP FORM ----------------------------- //
@@ -33,6 +35,8 @@ function printSignup() {
   signupPassword.placeholder = 'Password';
   let signupBtn = document.createElement('button');
   signupBtn.innerText = 'Sign Up';
+  signupBtn.style.marginTop = '3px';
+  signupBtn.style.marginBottom = '15px';
 
   signupBtn.addEventListener('click', () => {
     let sendNewUser = {
@@ -72,6 +76,8 @@ function printLoginForm() {
   inputPassword.type = 'password';
   let loginBtn = document.createElement('button');
   loginBtn.innerText = 'Log in';
+  loginBtn.style.marginTop = '3px';
+  loginBtn.style.marginBottom = '15px';
 
   loginBtn.addEventListener('click', () => {
     let sendUser = {
@@ -104,8 +110,58 @@ function printLoginForm() {
 
 printLoginForm();
 
+// --------------------------- TILLDELA FÄRG ----------------------------- //
 
-// --------------------- END SIGNUP FORM ----------------------------------- //
+const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+
+function assignRandomColorToUser() {
+    const randomIndex = Math.floor(Math.random() * 4);
+
+    return colors[randomIndex];
+}
+const userColor = assignRandomColorToUser();
+console.log(userColor); // Skriver ut den tilldelade färgen för användaren
+
+// ------------------------- FORTSÄTTNING ------------------------ //
+
+// Lyssna på händelsen när en ny användare ansluter
+socket.on('connect', () => {
+  // Tilldela den slumpmässiga färgen till den anslutna användaren
+  const userColor = assignRandomColorToUser();
+
+  // Skicka färgen till den anslutna klienten
+  socket.emit('assignColor', userColor);
+});
+socket.on('assignColor', (userColor) => {
+  console.log('Received assigned color:', userColor);
+});
+
+// ------------------------- FORTSÄTTNING TILLDELNING ------------------------ //
+
+// Lyssna på händelsen när en färg tilldelas till användaren på klienten
+socket.on('assignColor', (userColor) => {
+  console.log('Received assigned color:', userColor);
+
+  let messageElement = document.createElement('p');
+  let userName = document.getElementById('userName').value;
+  
+  messageElement.textContent = `${inputName.value}, du får `;
+  let coloredText = document.createElement('span');
+  messageElement.id ="userName";
+  coloredText.style.color = userColor;
+  coloredText.textContent = 'röd';
+  messageElement.appendChild(coloredText);
+  messageElement.textContent += ' färg.';
+  document.body.appendChild(messageElement);
+});
+
+assignRandomColorToUser()
+
+
+
+
+
+// ------------------------- SKAPA RUM ----------------------------------- //
 
 // Lägg till en händelselyssnare för att skapa ett rum när knappen klickas på
 createRoomBtn.addEventListener('click', () => {
@@ -195,7 +251,7 @@ function updateChat(data) {
   chatList.appendChild(li);
 }
 
-// -------------------------- RUTNÄT ----------------------------//
+// -------------------------------- RUTNÄT ----------------------------------//
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
