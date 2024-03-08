@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
   <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="stylesheet" href="style.css" type="text/css">
   <title>Chat Rooms</title>
 </head>
 <body>
@@ -17,7 +18,25 @@
     <div id="signupForm"></div>
 
     <div id="loginForm"></div>
+  <header><h1>CHATTRUM</h1></header>
+  
 
+  <section class="form-container">
+
+    <div id="signupForm"></div>
+
+    <div id="loginForm"></div>
+
+    <div>
+      <label for="roomName">Enter Room Name:</label>
+      <input type="text" id="roomName" />
+      <button id="createRoomBtn">Create Room</button>
+    </div>
+  </section>
+    <div>
+      <h2>Existing Rooms:</h2>
+      <ul id="roomList"></ul>
+    </div>
     <div>
       <label for="roomName">Enter Room Name:</label>
       <input type="text" id="roomName" />

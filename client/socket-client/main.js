@@ -37,6 +37,20 @@ roomList.style.display = 'none';
 chatSection.style.display = 'none';
 
 
+  createRoomBtn.style.marginTop = '3px';
+  createRoomBtn.style.marginBottom = '15px';
+
+
+
+// Dölj alla element utom loginForm vid start
+signupForm.style.display = 'none';
+sendMessage.style.display = 'none';
+createRoomBtn.style.display = 'none';
+roomNameInput.style.display = 'none';
+roomList.style.display = 'none';
+chatSection.style.display = 'none';
+
+
 
 // ------------------- SIGNUP FORM ----------------------------- //
 function printSignup() {
@@ -83,6 +97,118 @@ function printSignup() {
 
 printSignup();
 
+// --------------------- LOGIN USER ------------------------- //
+
+function printLoginForm() {
+
+  let inputName = document.createElement('input');
+  inputName.placeholder = 'Name';
+  let inputPassword = document.createElement('input');
+  inputPassword.placeholder = 'Password';
+  inputPassword.type = 'password';
+  let loginBtn = document.createElement('button');
+  loginBtn.innerText = 'Log in';
+  loginBtn.style.marginTop = '3px';
+  loginBtn.style.marginBottom = '15px';
+
+  loginBtn.addEventListener('click', () => {
+    let sendUser = {
+      name: inputName.value,
+      password: inputPassword.value,
+    };
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendUser),
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Login failed');
+      }
+    })
+    .then(data => {
+      console.log(data.message);
+       // Visa övriga element när användaren är inloggad
+      sendMessage.style.display = 'block';
+      createRoomBtn.style.display = 'block';
+      roomNameInput.style.display = 'block';
+      roomList.style.display = 'block';
+      chatSection.style.display = 'block';
+
+      socket.emit('login', sendUser.name);
+    })
+    .catch(error => {
+      console.error('Login error:', error);
+    })
+  })
+  loginForm.append(inputName, inputPassword, loginBtn);
+}
+
+printLoginForm();
+/*
+// --------------------------- TILLDELA FÄRG ----------------------------- //
+
+const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+
+function assignRandomColorToUser() {
+    const randomIndex = Math.floor(Math.random() * 4);
+
+    return colors[randomIndex];
+}
+const userColor = assignRandomColorToUser();
+console.log(userColor); // Skriver ut den tilldelade färgen för användaren
+
+// ------------------------- FORTSÄTTNING ------------------------ //
+
+// Lyssna på händelsen när en ny användare ansluter
+socket.on('connect', () => {
+  // Tilldela den slumpmässiga färgen till den anslutna användaren
+  const userColor = assignRandomColorToUser();
+
+  // Skicka färgen till den anslutna klienten
+  socket.emit('assignColor', userColor);
+});
+socket.on('assignColor', (userColor) => {
+  console.log('Received assigned color:', userColor);
+});
+
+// ------------------------- FORTSÄTTNING TILLDELNING ------------------------ //
+
+// Lyssna på händelsen när en färg tilldelas till användaren på klienten
+socket.on('assignColor', (userColor) => {
+  console.log('Received assigned color:', userColor);
+
+  let messageElement = document.createElement('p');
+  let userName = document.getElementById('userName').value;
+  
+  messageElement.textContent = `${inputName.value}, du får `;
+  let coloredText = document.createElement('span');
+  messageElement.id ="userName";
+  coloredText.style.color = userColor;
+  coloredText.textContent = 'röd';
+  messageElement.appendChild(coloredText);
+  messageElement.textContent += ' färg.';
+  document.body.appendChild(messageElement);
+});
+
+assignRandomColorToUser()
+
+*/
+
+
+
+
+
+
+
+
+
+
+// ------------------------- SKAPA RUM ----------------------------------- //
 // --------------------- LOGIN USER ------------------------- //
 
 function printLoginForm() {
