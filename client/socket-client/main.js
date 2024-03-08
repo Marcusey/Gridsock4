@@ -112,11 +112,13 @@ function printLoginForm() {
     .then(data => {
       console.log(data.message);
        // Visa övriga element när användaren är inloggad
-    sendMessage.style.display = 'block';
-    createRoomBtn.style.display = 'block';
-    roomNameInput.style.display = 'block';
-    roomList.style.display = 'block';
-    chatSection.style.display = 'block';
+      sendMessage.style.display = 'block';
+      createRoomBtn.style.display = 'block';
+      roomNameInput.style.display = 'block';
+      roomList.style.display = 'block';
+      chatSection.style.display = 'block';
+
+      socket.emit('login', sendUser.name);
     })
     .catch(error => {
       console.error('Login error:', error);
