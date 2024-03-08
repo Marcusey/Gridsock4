@@ -20,6 +20,17 @@ let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
   createRoomBtn.style.marginBottom = '15px';
 
 
+
+// Dölj alla element utom loginForm vid start
+signupForm.style.display = 'none';
+sendMessage.style.display = 'none';
+createRoomBtn.style.display = 'none';
+roomNameInput.style.display = 'none';
+roomList.style.display = 'none';
+chatSection.style.display = 'none';
+
+
+
 // ------------------- SIGNUP FORM ----------------------------- //
 function printSignup() {
   if (localStorage.getItem('user')) {
@@ -100,8 +111,12 @@ function printLoginForm() {
     })
     .then(data => {
       console.log(data.message);
-
-      socket.emit('login', sendUser.name);
+       // Visa övriga element när användaren är inloggad
+    sendMessage.style.display = 'block';
+    createRoomBtn.style.display = 'block';
+    roomNameInput.style.display = 'block';
+    roomList.style.display = 'block';
+    chatSection.style.display = 'block';
     })
     .catch(error => {
       console.error('Login error:', error);
@@ -111,7 +126,7 @@ function printLoginForm() {
 }
 
 printLoginForm();
-
+/*
 // --------------------------- TILLDELA FÄRG ----------------------------- //
 
 const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
@@ -159,6 +174,13 @@ socket.on('assignColor', (userColor) => {
 
 assignRandomColorToUser()
 
+*/
+
+
+
+
+
+
 
 
 
@@ -194,18 +216,12 @@ createRoomBtn.addEventListener('click', () => {
 
 sendBtn.addEventListener('click', () => {
   if (currentRoom) {
-    const message = sendMessage.value.trim();
-    if (message !== '') {
-      // Skicka chattmeddelandet till servern
-      socket.emit('chat', { room: currentRoom, message });
-      sendMessage.value = ''; // Återställ inputfältet
-    } else {
-      // Visa en varning om det är tomt
-      alert('Please type something first.');
-    }
+    const message = sendMessage.value;
+    // Skicka chattmeddelande till servern
+    socket.emit('chat', { room: currentRoom, message });
+    sendMessage.value = ''; // Återställ inputfältet
   }
 });
-
 
 // Uppdaterar chattlistan när ett chattmeddelande tas emot från servern
 socket.on('chat', (data) => {
@@ -241,46 +257,23 @@ function updateRoomList(rooms) {
   });
 }
 
-// Create an object to store messages for each room
-const roomMessages = {};
-
 // Funktion för att uppdatera chattlistan på användargränssnittet
 function updateChat(data) {
-  const { room, userId, message, color } = data;
+  // Skapa en li för varje meddelande
+  let li = document.createElement('li');
 
-  // Check if the roomMessages object has a property for the current room
-  if (!roomMessages[room]) {
-    roomMessages[room] = [];
+  // Om det är ett meddelande om att en användare har lämnat chatten
+  if (data.message.includes('left the room')) {
+    // Använd röd färg för meddelandet om användaren lämnar
+    li.innerHTML = `<span style="color: ${data.color};">${data.userId}</span> - <span style="color: red;">${data.message}</span>`;
+  } else {
+    // Annars, använd användarens färg för användarens ID och svart för meddelandetexten
+    li.innerHTML = `<span style="color: ${data.color};">${data.userId}</span> - ${data.message}`;
   }
 
-  // Add the message to the room-specific messages array
-  roomMessages[room].push({ userId, message, color });
-
-  // Keep only the latest 8 messages for the current room
-  if (roomMessages[room].length > 8) {
-    roomMessages[room].shift(); // Remove the oldest message
-  }
-
-  // Clear the chatList and append messages only for the current room
-  chatList.innerHTML = '';
-  roomMessages[currentRoom].forEach((msgData) => {
-    let li = document.createElement('li');
-    if (msgData.message.includes('left the room')) {
-      li.innerHTML = `<span style="color: ${msgData.color};">${msgData.userId}</span> - <span style="color: red;">${msgData.message}</span>`;
-    } else {
-      li.innerHTML = `<span style="color: ${msgData.color};">${msgData.userId}</span> - ${msgData.message}`;
-    }
-    chatList.appendChild(li);
-  });
+  // Visa meddelandet på användargränssnittet
+  chatList.appendChild(li);
 }
-
-socket.on('switchRoom', (newRoom) => {
-  // Leave current room and join new room
-  socket.leave(currentRoom);
-  socket.join(newRoom);
-  currentRoom = newRoom;
-});
-
 
 // -------------------------------- RUTNÄT ----------------------------------//
 
