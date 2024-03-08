@@ -100,6 +100,8 @@ function printLoginForm() {
     })
     .then(data => {
       console.log(data.message);
+
+      socket.emit('login', sendUser.name);
     })
     .catch(error => {
       console.error('Login error:', error);
