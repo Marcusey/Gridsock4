@@ -5,34 +5,40 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <link rel="stylesheet" href="style.css" type="text/css">
   <title>Chat Rooms</title>
 </head>
 <body>
-
+  <header><h1>CHATTRUM</h1></header>
   
-<div id="signupForm"></div>
 
-  <div>
-    <label for="roomName">Enter Room Name:</label>
-    <input type="text" id="roomName" />
-    <button id="createRoomBtn">Create Room</button>
-  </div>
+  <section class="form-container">
 
-  <div>
-    <h2>Existing Rooms:</h2>
-    <ul id="roomList"></ul>
-  </div>
+    <div id="signupForm"></div>
+
+    <div id="loginForm"></div>
+
+    <div>
+      <label for="roomName">Enter Room Name:</label>
+      <input type="text" id="roomName" />
+      <button id="createRoomBtn">Create Room</button>
+    </div>
+  </section>
+    <div>
+      <h2>Existing Rooms:</h2>
+      <ul id="roomList"></ul>
+    </div>
+
+    <div id="chatSection" style="display: none;">
+      <input type="text" id="sendMessage" />
+      <button id="sendBtn">Send</button>
+      <ul id="chatList"></ul>
+    </div>
+  
+    <canvas id="myCanvas" class="canvas" width="500" height="500"></canvas>
 
 <!-- Lägg in i mötesrummen sen vid kreation -->
  <button id="startGameBtn">Start Game</button>
-
-  <div id="chatSection" style="display: none;">
-    <input type="text" id="sendMessage" />
-    <button id="sendBtn">Send</button>
-    <ul id="chatList"></ul>
-</div>
-
-<canvas id="myCanvas" class="canvas" width="500" height="500"></canvas>
 
   <script type="module" src="/main.js"></script>
 </body>

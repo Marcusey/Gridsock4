@@ -48,6 +48,39 @@ io.on("connection", (socket) => {
   io.emit("roomList", Array.from(activeRooms));
   console.log("connection", socket);
 
+  let user;
+
+  socket.on('login', (userName) => {
+    getUserFromDatabase(userName, (userData) => {
+      if (userData) {
+        user = { name: userData.name, id: socket.id };
+        activeUsers.set(userName, user);
+        console.log(`${user.name} logged in with socket.id: ${socket.id}`);
+        socket.emit('loggedIn', { name: user.name });
+      } else {
+        console.error(`User ${userName} not found in the database.`);
+      }
+    })
+  });
+
+  function getUserFromDatabase(userName, callback) {
+    let query = 'SELECT * FROM users WHERE name = ?';
+    connection.query(query, [userName], (err, results) => {
+      if (err) {
+        console.error('Database error:', err);
+        callback(null);
+        return;
+      }
+
+      if (results.length > 0) {
+        const user = results[0];
+        callback(user);
+      } else {
+        callback(null);
+      }
+    });
+  }
+
   // Händelse när en användare går med i ett rum
   socket.on('joinRoom', (room) => {
     socket.join(room); // Anslut användaren till rummet
@@ -86,14 +119,19 @@ socket.on('createRoom', (room) => {
   socket.on('chat', (data) => {
     console.log('incoming chat', data);
 
-    const user = activeUsers.get(socket.id);
 
     if (user) {
-        io.to(data.room).emit('chat', { message: data.message, room: data.room, userId: socket.id, color: user.color });
+      io.to(data.room).emit('chat', {
+        message: data.message,
+        room: data.room,
+        userId: user.name,
+        color: user.color,
+      });    
+
     } else {
         console.error(`User ${socket.id} not found in activeUsers map.`);
     }
-});
+  });
   
 
   // Händelse när en användare kopplar från
@@ -105,7 +143,7 @@ socket.on('createRoom', (room) => {
         activeUsers.delete(socket.id); // Ta bort användaren från aktiv användarlista vid frånkoppling
         io.emit('roomList', Array.from(activeRooms));
     }
-});
+  });
   // Skicka uppdaterad rumlista till den nyligen anslutna klienten
   socket.emit("roomList", Array.from(activeRooms));
 });
