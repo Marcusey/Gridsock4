@@ -74,7 +74,8 @@ function printSignup() {
 
 printSignup();
 
-// --------------------- LOGIN USER ------------------------- //
+// ----------------------------- LOGGA IN -------------------------------- //
+printLoginForm();
 
 function printLoginForm() {
 
@@ -87,6 +88,7 @@ function printLoginForm() {
   loginBtn.innerText = 'Log in';
   loginBtn.style.marginTop = '3px';
   loginBtn.style.marginBottom = '15px';
+
 
   loginBtn.addEventListener('click', () => {
     let sendUser = {
@@ -108,13 +110,15 @@ function printLoginForm() {
         }
       })
       .then((data) => {
-        console.log(data.message);
+        console.log(inputName.value, "logged in");
         // Visa övriga element när användaren är inloggad
         sendMessage.style.display = 'block';
         createRoomBtn.style.display = 'block';
         roomNameInput.style.display = 'block';
         roomList.style.display = 'block';
         chatSection.style.display = 'block';
+        loginForm.style.display = "none";
+        printLogoutBtn(inputName.value);
 
         socket.emit('login', sendUser.name);
       })
@@ -125,7 +129,27 @@ function printLoginForm() {
   loginForm.append(inputName, inputPassword, loginBtn);
 }
 
-printLoginForm();
+
+// ---------------------------------- LOGGA UT ----------------------------------- //
+
+function printLogoutBtn(userName) {
+
+  let logoutBtn = document.createElement('button');
+  logoutBtn.innerText = 'Log out';
+  logoutBtn.style.marginTop = '50px';
+  logoutBtn.style.marginBottom = '1px';
+  logoutBtn.addEventListener('click', () => {
+    console.log(userName, "logged out");
+    alert("You are logging out.");
+    localStorage.removeItem('user');
+    location.reload();
+  });
+   let logoutBtnContainer = document.getElementById('logoutBtn');
+   // Lägg till logoutBtn i logoutBtnContainer längst ner på sidan
+   logoutBtnContainer.appendChild(logoutBtn);
+}
+
+
 /*
 // --------------------------- TILLDELA FÄRG ----------------------------- //
 
@@ -212,6 +236,9 @@ createRoomBtn.addEventListener('click', () => {
     socket.emit('createRoom', roomName);
   }
 });
+
+
+// ---------------------------------------- SEND BUTTON -------------------------------------- //
 
 sendBtn.addEventListener('click', () => {
   if (currentRoom) {
@@ -301,9 +328,10 @@ socket.on('switchRoom', (newRoom) => {
   currentRoom = newRoom;
 });
 
-// -------------------------------- RUTNÄT ----------------------------------//
+// -------------------------------- RUTNÄT - CANVAS ----------------------------------//
 
 const canvas = document.getElementById('myCanvas');
+canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width;
@@ -333,4 +361,4 @@ for (let j = 0; j <= cols; j++) {
 ctx.strokeStyle = 'black';
 ctx.stroke();
 
-// -------------------------- SLUT RUTNÄT ----------------------------//
+// -------------------------- SLUT RUTNÄT - CANVAS ----------------------------//
