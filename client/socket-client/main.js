@@ -120,6 +120,7 @@ function printLoginForm() {
           return response.json();
         } else {
           throw new Error('Login failed');
+
         }
       })
       .then((data) => {
@@ -140,6 +141,9 @@ function printLoginForm() {
       })
       .catch((error) => {
         console.error('Login error:', error);
+        alert('Login failed, Try again!');
+        inputName.value = '';
+        inputPassword.value = '';
       });
   });
   loginForm.append(inputName, inputPassword, loginBtn);
