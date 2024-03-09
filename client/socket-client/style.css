@@ -79,3 +79,21 @@ a:hover {
   background-color: #e0e0e0; 
   color: #949ce4;
 }
+
+#roomLists {
+    width: 300px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#existingRooms {
+  text-align: left;
+  width: 50%;
+}
+
+#createRoom {
+  text-align: left;
+  width: 50%;
+}

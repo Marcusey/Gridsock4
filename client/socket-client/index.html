@@ -11,24 +11,24 @@
 <body>
   <header><h1>CHATROOMS</h1></header>
   
+  
+    <section class="form-container">
 
-  <section class="form-container">
-
-    <div id="signupForm"></div>
-
-    <div id="loginForm"></div>
-
-    <div>
-      <label for="roomName"></label>
-      <input type="text" name="Enter Room Name:" placeholder="Enter Room Name" id="roomName" />
-      <button id="createRoomBtn">Create Room</button>
-    </div>
-  </section>
-    <div id="existing rooms">
+      <div id="signupForm"></div>
+      <div id="loginForm"></div>
       
-      <ul id="roomList"></ul>
-    </div>
-
+    </section> 
+    <section id="roomLists">
+      <div id="createRoom">
+        <label for="roomName"></label>
+        <input type="text" name="Enter Room Name:" placeholder="Enter Room Name" id="roomName" />
+        <button id="createRoomBtn">Create Room</button>
+      </div>
+    
+      <div id="existingRooms">
+        <ul id="roomList"></ul>
+      </div>
+    </section>
     <div id="chatSection" style="display: none;">
       <input type="text" id="sendMessage" />
       <button id="sendBtn">Send</button>

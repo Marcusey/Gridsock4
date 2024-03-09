@@ -16,8 +16,21 @@ let chatSection = document.querySelector('#chatSection');
 
 let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
 
-createRoomBtn.style.marginTop = '3px';
-createRoomBtn.style.marginBottom = '15px';
+// ---------------- H3 ELEMENT TILL ROOMS -------------------- //
+const createRoomSection = document.getElementById('createRoom');
+const existingRoomsSection = document.getElementById('existingRooms');
+
+const createRoomHeading = document.createElement('h3');createRoom
+createRoomHeading.textContent = 'Create a room';
+createRoomSection.insertBefore(createRoomHeading, createRoomSection.firstChild);
+createRoomHeading.style.marginTop = "0";
+createRoomHeading.style.display = "none";
+
+const existingRoomsHeading = document.createElement('h3');
+existingRoomsHeading.textContent = 'Existing rooms';
+existingRoomsSection.insertBefore(existingRoomsHeading, existingRoomsSection.firstChild);
+existingRoomsHeading.style.marginTop = "0";
+existingRoomsHeading.style.display = "none";
 
 
 
@@ -85,7 +98,7 @@ function printLoginForm() {
   inputPassword.placeholder = 'Password';
   inputPassword.type = 'password';
   let loginBtn = document.createElement('button');
-  loginBtn.innerText = 'Log in';
+  loginBtn.innerText = 'Login';
   loginBtn.style.marginTop = '3px';
   loginBtn.style.marginBottom = '15px';
 
@@ -111,6 +124,7 @@ function printLoginForm() {
       })
       .then((data) => {
         console.log(inputName.value, "logged in");
+        showLoginMessage(inputName.value);
         // Visa övriga element när användaren är inloggad
         sendMessage.style.display = 'block';
         createRoomBtn.style.display = 'block';
@@ -119,6 +133,8 @@ function printLoginForm() {
         chatSection.style.display = 'block';
         loginForm.style.display = "none";
         printLogoutBtn(inputName.value);
+        createRoomHeading.style.display = "block";
+        existingRoomsHeading.style.display = "block";
 
         socket.emit('login', sendUser.name);
       })
@@ -129,17 +145,30 @@ function printLoginForm() {
   loginForm.append(inputName, inputPassword, loginBtn);
 }
 
+function showLoginMessage(userName) {
+  let loginMessage = document.createElement('p');
+  loginMessage.textContent = `${userName} logged in`;
+  document.body.appendChild(loginMessage);
+}
+
+// När användaren loggar ut
+function showLogoutMessage(userName) {
+  let logoutMessage = document.createElement('p');
+  logoutMessage.textContent = `${userName} logged out`;
+  document.body.appendChild(logoutMessage);
+}
 
 // ---------------------------------- LOGGA UT ----------------------------------- //
 
 function printLogoutBtn(userName) {
 
   let logoutBtn = document.createElement('button');
-  logoutBtn.innerText = 'Log out';
+  logoutBtn.innerText = 'Logout';
   logoutBtn.style.marginTop = '50px';
   logoutBtn.style.marginBottom = '1px';
   logoutBtn.addEventListener('click', () => {
     console.log(userName, "logged out");
+    showLogoutMessage(userName);
     alert("You are logging out.");
     localStorage.removeItem('user');
     location.reload();
