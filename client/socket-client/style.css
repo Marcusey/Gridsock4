@@ -69,7 +69,6 @@ input:focus {
 .canvas {
   border: 1px solid black;
 }
-
 a {
   display: inline-block;
   padding: 4px;
@@ -81,35 +80,41 @@ a {
   transition: background-color 0.25s, color 0.25s;
   width: 150px;
   font-weight: bold;
-  
 }
 a:hover {
   background-color: #e0e0e0; 
   color: #949ce4;
 }
-
 #roomLists {
     width: 400px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
 #existingRooms ul {
   list-style: none;
   padding: 0;
 }
-
 #existingRooms ul li {
   margin-bottom: 5px;
 }
-
 #existingRooms ul li {
   text-align: left;
   font-weight: bold;
 }
-
 #createRoom {
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 60px;
+}
+#chatSection {
+  width: 400px
+}
+#chatSection ul {
+  list-style: none;
+  padding: 0;
+}
+#chatSectionInner {
   text-align: left;
   margin-left: 30px;
   margin-right: 60px;

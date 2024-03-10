@@ -155,7 +155,7 @@ function printLogoutBtn(userName) {
   let logoutBtn = document.createElement('button');
   logoutBtn.innerText = 'Logout';
   logoutBtn.style.marginTop = '150px';
-  logoutBtn.style.marginBottom = '1px';
+  logoutBtn.style.marginBottom = '10px';
   logoutBtn.addEventListener('click', () => {
     console.log(userName, "logged out");
     alert("You are logging out.");
