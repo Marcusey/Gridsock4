@@ -125,13 +125,12 @@ function printLoginForm() {
       })
       .then((data) => {
         console.log(inputName.value, "logged in");
-        showLoginMessage(inputName.value);
         // Visa övriga element när användaren är inloggad
         sendMessage.style.display = 'block';
         createRoomBtn.style.display = 'block';
         roomNameInput.style.display = 'block';
         roomList.style.display = 'block';
-        chatSection.style.display = 'block';
+        chatSection.style.display = 'none';
         loginForm.style.display = "none";
         printLogoutBtn(inputName.value);
         createRoomHeading.style.display = "block";
@@ -149,30 +148,16 @@ function printLoginForm() {
   loginForm.append(inputName, inputPassword, loginBtn);
 }
 
-function showLoginMessage(userName) {
-  let loginMessage = document.createElement('p');
-  loginMessage.textContent = `${userName} logged in`;
-  document.body.appendChild(loginMessage);
-}
-
-// När användaren loggar ut
-function showLogoutMessage(userName) {
-  let logoutMessage = document.createElement('p');
-  logoutMessage.textContent = `${userName} logged out`;
-  document.body.appendChild(logoutMessage);
-}
-
 // ---------------------------------- LOGGA UT ----------------------------------- //
 
 function printLogoutBtn(userName) {
 
   let logoutBtn = document.createElement('button');
   logoutBtn.innerText = 'Logout';
-  logoutBtn.style.marginTop = '50px';
+  logoutBtn.style.marginTop = '150px';
   logoutBtn.style.marginBottom = '1px';
   logoutBtn.addEventListener('click', () => {
     console.log(userName, "logged out");
-    showLogoutMessage(userName);
     alert("You are logging out.");
     localStorage.removeItem('user');
     location.reload();
