@@ -127,8 +127,5 @@ a:hover {
 
 .canvas {
   border: 1px solid black;
-}
-
-#butterflyCanvas {
-  border: 1px solid black;
+  display: none;
 }

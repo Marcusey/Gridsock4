@@ -346,79 +346,77 @@ socket.on('switchRoom', (newRoom) => {
   currentRoom = newRoom;
 });
 
-// -------------------------------- RUTNÄT - CANVAS ----------------------------------//
-/*
-const canvas = document.getElementById('myCanvas');
-canvas.style.display = 'none';
-const ctx = canvas.getContext('2d');
 
-const width = canvas.width;
-const height = canvas.height;
+
+// -------------------------------- TOMT RUTNÄT - CANVAS ----------------------------------//
+const emptyCanvas = document.getElementById('myCanvas');
+const emptyCtx = emptyCanvas.getContext('2d');
+const cellSize = 20;
 const rows = 15;
 const cols = 15;
-const cellWidth = width / cols;
-const cellHeight = height / rows;
-canvas.addEventListener('click', function (event) {
-  const clickedRow = Math.floor(event.offsetY / cellHeight);
-  const clickedCol = Math.floor(event.offsetX / cellWidth);
 
-  ctx.fillStyle = 'black';
-  ctx.fillRect(clickedCol * cellWidth, clickedRow * cellHeight, cellWidth, cellHeight);
-});
+emptyCanvas.width = cols * cellSize;
+emptyCanvas.height = rows * cellSize;
+
 
 for (let i = 0; i <= rows; i++) {
-  ctx.moveTo(0, i * cellHeight);
-  ctx.lineTo(width, i * cellHeight);
+  emptyCtx.moveTo(0, i * cellSize);
+  emptyCtx.lineTo(cols * cellSize, i * cellSize);
 }
 
 for (let j = 0; j <= cols; j++) {
-  ctx.moveTo(j * cellWidth, 0);
-  ctx.lineTo(j * cellWidth, height);
+  emptyCtx.moveTo(j * cellSize, 0);
+  emptyCtx.lineTo(j * cellSize, rows * cellSize);
 }
 
-ctx.strokeStyle = 'black';
-ctx.stroke();
-*/
-// -------------------------- SLUT RUTNÄT - CANVAS ----------------------------//
+emptyCtx.strokeStyle = 'black';
+emptyCtx.stroke();
 
+emptyCanvas.addEventListener('click', function(event) {
+  const clickedRow = Math.floor(event.offsetY / cellSize);
+  const clickedCol = Math.floor(event.offsetX / cellSize);
 
+  emptyCtx.fillStyle = 'black';
+  emptyCtx.fillRect(clickedCol * cellSize, clickedRow * cellSize, cellSize, cellSize);
+});
+
+  
 // --------------------------- RUTNÄT BILDER ---------------------------------//
 
 // Butterfly
 
-  const canvas = document.getElementById('butterflyCanvas');
-  const ctx = canvas.getContext('2d');
-  const cellSize = 20;
-  const colors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
+const canvas = document.getElementById('butterflyCanvas');
+const ctx = canvas.getContext('2d');
+const colors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
 
-  const butterflyGrid = [
-    [0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0],
-    [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
-    [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
-    [0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0, 0],
-    [0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0, 0],
-    [0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 0],
-    [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
-    [0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0, 0],
-    [0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ];
+const butterflyGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0],
+  [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
+  [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
+  [0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0, 0],
+  [0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0, 0],
+  [0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0, 0],
+  [0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 0],
+  [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
+  [0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0, 0],
+  [0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  
+];
 
-  function drawButterfly() {
-    for (let i = 0; i < butterflyGrid.length; i++) {
-      for (let j = 0; j < butterflyGrid[i].length; j++) {
-        const colorIndex = butterflyGrid[i][j];
-        ctx.fillStyle = colors[colorIndex];
-        ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
-      }
+function drawButterfly() {
+  for (let i = 0; i < butterflyGrid.length; i++) {
+    for (let j = 0; j < butterflyGrid[i].length; j++) {
+      const colorIndex = butterflyGrid[i][j];
+      ctx.fillStyle = colors[colorIndex];
+      ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
     }
   }
-  drawButterfly();
+}
 
 // Circle
 
@@ -563,3 +561,67 @@ for (let i = 0; i < pokemonGrid.length; i++) {
 }
 }
 drawPokemon();
+
+
+// ----------------------- START BUTTON ----------------------------- //
+
+const startBtn = document.getElementById('startBtn');
+startBtn.innerText = 'start';
+
+let userColor = null;
+
+// Skapa en funktion för att generera en slumpmässig färg från butterflyGrid-färger
+function getRandomColor() {
+  const availableColors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
+  const randomIndex = Math.floor(Math.random() * availableColors.length);
+  return availableColors[randomIndex];
+}
+
+
+
+startBtn.addEventListener('click', function() {
+  // Hämta en slumpmässig färg från butterflyGrid
+  userColor = getRandomColor();
+  console.log('Användaren fick den slumpmässiga färgen:', userColor);
+  drawButterfly();
+  showButterflyCanvas();
+  // Här kan du implementera ytterligare logik för att använda den slumpmässiga färgen i din applikation
+});
+
+// Lyssna på händelsen när användaren klickar på emptyCanvas för att rita
+emptyCanvas.addEventListener('click', function(event) {
+  const clickedRow = Math.floor(event.offsetY / cellSize);
+  const clickedCol = Math.floor(event.offsetX / cellSize);
+
+  // Rita på emptyCanvas med användarens färg
+  emptyCtx.fillStyle = userColor;
+  emptyCtx.fillRect(clickedCol * cellSize, clickedRow * cellSize, cellSize, cellSize);
+});
+
+// Lyssna på händelsen när användaren skickar meddelande
+sendBtn.addEventListener('click', () => {
+  if (currentRoom) {
+      const message = sendMessage.value.trim();
+      if (message !== '') {
+          // Skicka chattmeddelandet till servern med användarens färg
+          socket.emit('chat', { room: currentRoom, message, color: userColor });
+          sendMessage.value = ''; // Återställ inputfältet
+      } else {
+          // Visa en varning om det är tomt
+          alert('Please type something first.');
+      }
+  }
+});
+
+    function showButterflyCanvas() {
+      document.getElementById('butterflyCanvas').style.display = 'block';
+    
+      document.getElementById('myCanvas').style.display = 'none';
+    
+      setTimeout(function() {
+        document.getElementById('myCanvas').style.display = 'block';
+        document.getElementById('butterflyCanvas').style.display = 'none';
+      }, 5000);
+    }
+
+    // ----------------------------
