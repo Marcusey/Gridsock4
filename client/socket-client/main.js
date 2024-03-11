@@ -35,7 +35,6 @@ existingRoomsHeading.style.display = "none";
 
 
 // Dölj alla element utom loginForm vid start
-signupForm.style.display = 'none';
 sendMessage.style.display = 'none';
 createRoomBtn.style.display = 'none';
 roomNameInput.style.display = 'none';
@@ -132,6 +131,7 @@ function printLoginForm() {
         roomList.style.display = 'block';
         chatSection.style.display = 'none';
         loginForm.style.display = "none";
+        signupForm.style.display = 'none';
         printLogoutBtn(inputName.value);
         createRoomHeading.style.display = "block";
         existingRoomsHeading.style.display = "block";
