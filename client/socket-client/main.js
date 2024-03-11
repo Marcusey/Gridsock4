@@ -382,38 +382,184 @@ ctx.stroke();
 // -------------------------- SLUT RUTNÄT - CANVAS ----------------------------//
 
 
-// --------------------------- RUTNÄT BILD - FJÄRIL ----------------------------- //
+// --------------------------- RUTNÄT BILDER ---------------------------------//
 
-    const canvas = document.getElementById('butterflyCanvas');
-    const ctx = canvas.getContext('2d');
-    const cellSize = 20;
-    const colors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
+// Butterfly
 
-    const butterflyGrid = [
-      [0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0],
-      [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
-      [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
-      [0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0, 0],
-      [0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0, 0],
-      [0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0, 0],
-      [0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 0],
-      [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
-      [0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0, 0],
-      [0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ];
+  const canvas = document.getElementById('butterflyCanvas');
+  const ctx = canvas.getContext('2d');
+  const cellSize = 20;
+  const colors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
 
-    function drawButterfly() {
-      for (let i = 0; i < butterflyGrid.length; i++) {
-        for (let j = 0; j < butterflyGrid[i].length; j++) {
-          const colorIndex = butterflyGrid[i][j];
-          ctx.fillStyle = colors[colorIndex];
-          ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
-        }
+  const butterflyGrid = [
+    [0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0],
+    [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
+    [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
+    [0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0, 0],
+    [0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 0],
+    [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
+    [0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0, 0],
+    [0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ];
+
+  function drawButterfly() {
+    for (let i = 0; i < butterflyGrid.length; i++) {
+      for (let j = 0; j < butterflyGrid[i].length; j++) {
+        const colorIndex = butterflyGrid[i][j];
+        ctx.fillStyle = colors[colorIndex];
+        ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
       }
     }
-    drawButterfly();
+  }
+  drawButterfly();
+
+// Circle
+
+  const circleCanvas = document.querySelector('#circleCanvas');
+  const ctxCircle = circleCanvas.getContext('2d');
+  const cellSizeCircle = 20;
+  const colorsCircle = ['#FFFFFF', '#A9D3FF', '#1E91D6', '#B388EB'];
+
+const circleGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+  [0, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0],
+  [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+  [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+  [0, 0, 3, 3, 2, 2, 2, 2, 2, 2, 2, 3, 3, 0, 0],
+  [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+  [0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+function drawCircle() {
+  for (let i = 0; i < circleGrid.length; i++) {
+    for (let j = 0; j < circleGrid[i].length; j++) {
+      const colorIndex = circleGrid[i][j];
+      ctxCircle.fillStyle = colorsCircle[colorIndex];
+      ctxCircle.fillRect(j * cellSizeCircle, i * cellSizeCircle, cellSizeCircle, cellSizeCircle);
+    }
+  }
+}
+drawCircle();
+
+// Heart 
+
+const heartCanvas = document.querySelector('#heartCanvas');
+  const ctxHeart = heartCanvas.getContext('2d');
+  const cellSizeHeart = 20;
+  const colorsHeart = ['#FFFFFF', '#a4133c', '#c9184a', '#ff4d6d'];
+
+const heartGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+  [0, 0, 1, 2, 2, 1, 0, 0, 0, 1, 2, 2, 1, 0, 0],
+  [0, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 0],
+  [0, 0, 1, 2, 3, 3, 2, 1, 2, 3, 3, 2, 1, 0, 0],
+  [0, 0, 1, 2, 3, 3, 3, 2, 3, 3, 3, 2, 1, 0, 0],
+  [0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 2, 1, 0, 0, 0],
+  [0, 0, 0, 0, 1, 2, 3, 3, 3, 2, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 2, 3, 2, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+function drawHeart() {
+  for (let i = 0; i < heartGrid.length; i++) {
+    for (let j = 0; j < heartGrid[i].length; j++) {
+      const colorIndex = heartGrid[i][j];
+      ctxHeart.fillStyle = colorsHeart[colorIndex];
+      ctxHeart.fillRect(j * cellSizeHeart, i * cellSizeHeart, cellSizeHeart, cellSizeHeart);
+    }
+  }
+}
+drawHeart();
+
+// Watermelon
+
+const watermelonCanvas = document.querySelector('#watermelonCanvas');
+  const ctxWatermelon = watermelonCanvas.getContext('2d');
+  const cellSizeWatermelon = 20;
+  const colorsWatermelon = ['#FFFFFF', '#2c6e49', '#d90429', '#000000'];
+
+const watermelonGrid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 2, 2, 3, 2, 2, 1, 1, 0],
+  [0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 1, 1, 0],
+  [0, 0, 0, 0, 0, 2, 2, 2, 3, 2, 2, 2, 1, 1, 0],
+  [0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0],
+  [0, 0, 0, 2, 2, 2, 3, 2, 2, 2, 2, 1, 1, 1, 0],
+  [0, 0, 2, 2, 3, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0],
+  [0, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0],
+  [0, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+function drawWatermelon() {
+  for (let i = 0; i < watermelonGrid.length; i++) {
+    for (let j = 0; j < watermelonGrid[i].length; j++) {
+      const colorIndex = watermelonGrid[i][j];
+      ctxWatermelon.fillStyle = colorsWatermelon[colorIndex];
+      ctxWatermelon.fillRect(j * cellSizeWatermelon, i * cellSizeWatermelon, cellSizeWatermelon, cellSizeWatermelon);
+    }
+  }
+}
+drawWatermelon();
+
+// Pokemonboll
+
+const pokemonCanvas = document.querySelector('#pokemonCanvas');
+const ctxPokemon = pokemonCanvas.getContext('2d');
+const cellSizePokemon = 20;
+const colorsPokemon = ['#FFFFFF', '#d90429', '#000000', '#e5e5e5'];
+
+const pokemonGrid = [
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+[0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0],
+[0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0],
+[0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0],
+[0, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 0],
+[0, 2, 1, 1, 1, 1, 2, 3, 3, 2, 1, 1, 1, 2, 0],
+[0, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 0],
+[0, 2, 3, 3, 3, 3, 3, 2, 2, 3, 3, 3, 3, 2, 0],
+[0, 0, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 0, 0],
+[0, 0, 0, 2, 3, 3, 3, 3, 3, 3, 3, 2, 0, 0, 0],
+[0, 0, 0, 0, 2, 3, 3, 3, 3, 3, 2, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+function drawPokemon() {
+for (let i = 0; i < pokemonGrid.length; i++) {
+  for (let j = 0; j < pokemonGrid[i].length; j++) {
+    const colorIndex = pokemonGrid[i][j];
+    ctxPokemon.fillStyle = colorsPokemon[colorIndex];
+    ctxPokemon.fillRect(j * cellSizePokemon, i * cellSizePokemon, cellSizePokemon, cellSizePokemon);
+  }
+}
+}
+drawPokemon();
