@@ -5,7 +5,8 @@ var logger = require("morgan");
 const app = require("express")();
 const server = require("http").createServer(app);
 var express = require("express");
-let cors = require("cors");
+const cors = require("cors");
+const connection = require("./lib/conn");
 const mysql = require("mysql2");
 const CryptoJS = require("crypto-js");
 
@@ -30,6 +31,22 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+
+app.get("/todo", (req, res) => {
+
+    connection.connect((err) => {
+        if (err) console.log("err", err);
+
+        let query = "SELECT * FROM todo";
+
+        connection.query(query, (err, data) => {
+            if (err) console.log("err", err);
+
+            console.log("todos", data);
+            res.json(data);
+        })
+    })
+})
 
 const io = require("socket.io")(server, {
   cors: {
