@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 }
-
+/*
 a {
   font-weight: bold;
   color: #5b5357;
@@ -12,6 +12,7 @@ a {
 a:hover {
   color: #ca54b7;
 }
+*/
 
 body {
   margin: 0;
@@ -27,13 +28,17 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+h3 {
+  margin-top: 0;
+}
+/*
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+*/
 button {
   border-radius: 3px;
   border: 1px solid transparent;
@@ -45,6 +50,7 @@ button {
   transition: border-color 0.25s;
   
 }
+
 button:hover {
   border-color: #5b5357;
 }
@@ -63,19 +69,53 @@ input:focus {
 .canvas {
   border: 1px solid black;
 }
-
 a {
   display: inline-block;
-  padding: 8px 12px;
-  margin-right: 10px;
+  padding: 4px;
+  margin-bottom: 3px;
   color: #5b5357; 
   text-decoration: none;
   background-color: #f2f2f2; 
-  border-radius: 5px;
+  border-radius: 4px;
   transition: background-color 0.25s, color 0.25s;
+  width: 150px;
+  font-weight: bold;
 }
-
 a:hover {
   background-color: #e0e0e0; 
   color: #949ce4;
+}
+#roomLists {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#existingRooms ul {
+  list-style: none;
+  padding: 0;
+}
+#existingRooms ul li {
+  margin-bottom: 5px;
+}
+#existingRooms ul li {
+  text-align: left;
+  font-weight: bold;
+}
+#createRoom {
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 60px;
+}
+#chatSection {
+  width: 400px
+}
+#chatSection ul {
+  list-style: none;
+  padding: 0;
+}
+#chatSectionInner {
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 60px;
 }
