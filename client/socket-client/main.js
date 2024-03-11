@@ -16,8 +16,21 @@ let chatSection = document.querySelector('#chatSection');
 
 let currentRoom = null; // Variabel för att hålla reda på det aktuella rummet
 
-createRoomBtn.style.marginTop = '3px';
-createRoomBtn.style.marginBottom = '15px';
+// ---------------- H3 ELEMENT TILL ROOMS -------------------- //
+const createRoomSection = document.getElementById('createRoom');
+const existingRoomsSection = document.getElementById('existingRooms');
+
+const createRoomHeading = document.createElement('h3');createRoom
+createRoomHeading.textContent = 'Create a room';
+createRoomSection.insertBefore(createRoomHeading, createRoomSection.firstChild);
+createRoomHeading.style.marginTop = "0";
+createRoomHeading.style.display = "none";
+
+const existingRoomsHeading = document.createElement('h3');
+existingRoomsHeading.textContent = 'Existing rooms';
+existingRoomsSection.insertBefore(existingRoomsHeading, existingRoomsSection.firstChild);
+existingRoomsHeading.style.marginTop = "0";
+existingRoomsHeading.style.display = "none";
 
 
 
@@ -74,7 +87,8 @@ function printSignup() {
 
 printSignup();
 
-// --------------------- LOGIN USER ------------------------- //
+// ----------------------------- LOGGA IN -------------------------------- //
+printLoginForm();
 
 function printLoginForm() {
 
@@ -84,9 +98,10 @@ function printLoginForm() {
   inputPassword.placeholder = 'Password';
   inputPassword.type = 'password';
   let loginBtn = document.createElement('button');
-  loginBtn.innerText = 'Log in';
+  loginBtn.innerText = 'Login';
   loginBtn.style.marginTop = '3px';
   loginBtn.style.marginBottom = '15px';
+
 
   loginBtn.addEventListener('click', () => {
     let sendUser = {
@@ -105,27 +120,54 @@ function printLoginForm() {
           return response.json();
         } else {
           throw new Error('Login failed');
+
         }
       })
       .then((data) => {
-        console.log(data.message);
+        console.log(inputName.value, "logged in");
         // Visa övriga element när användaren är inloggad
         sendMessage.style.display = 'block';
         createRoomBtn.style.display = 'block';
         roomNameInput.style.display = 'block';
         roomList.style.display = 'block';
-        chatSection.style.display = 'block';
+        chatSection.style.display = 'none';
+        loginForm.style.display = "none";
+        printLogoutBtn(inputName.value);
+        createRoomHeading.style.display = "block";
+        existingRoomsHeading.style.display = "block";
 
         socket.emit('login', sendUser.name);
       })
       .catch((error) => {
         console.error('Login error:', error);
+        alert('Login failed, Try again!');
+        inputName.value = '';
+        inputPassword.value = '';
       });
   });
   loginForm.append(inputName, inputPassword, loginBtn);
 }
 
-printLoginForm();
+// ---------------------------------- LOGGA UT ----------------------------------- //
+
+function printLogoutBtn(userName) {
+
+  let logoutBtn = document.createElement('button');
+  logoutBtn.innerText = 'Logout';
+  logoutBtn.style.marginTop = '150px';
+  logoutBtn.style.marginBottom = '10px';
+  logoutBtn.addEventListener('click', () => {
+    console.log(userName, "logged out");
+    alert("You are logging out.");
+    localStorage.removeItem('user');
+    location.reload();
+  });
+   let logoutBtnContainer = document.getElementById('logoutBtn');
+   // Lägg till logoutBtn i logoutBtnContainer längst ner på sidan
+   logoutBtnContainer.appendChild(logoutBtn);
+}
+
+
 /*
 // --------------------------- TILLDELA FÄRG ----------------------------- //
 
@@ -212,6 +254,9 @@ createRoomBtn.addEventListener('click', () => {
     socket.emit('createRoom', roomName);
   }
 });
+
+
+// ---------------------------------------- SEND BUTTON -------------------------------------- //
 
 sendBtn.addEventListener('click', () => {
   if (currentRoom) {
@@ -301,9 +346,10 @@ socket.on('switchRoom', (newRoom) => {
   currentRoom = newRoom;
 });
 
-// -------------------------------- RUTNÄT ----------------------------------//
+// -------------------------------- RUTNÄT - CANVAS ----------------------------------//
 
 const canvas = document.getElementById('myCanvas');
+canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width;
@@ -333,4 +379,4 @@ for (let j = 0; j <= cols; j++) {
 ctx.strokeStyle = 'black';
 ctx.stroke();
 
-// -------------------------- SLUT RUTNÄT ----------------------------//
+// -------------------------- SLUT RUTNÄT - CANVAS ----------------------------//

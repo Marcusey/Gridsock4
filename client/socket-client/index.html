@@ -6,38 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
   <link rel="stylesheet" href="style.css" type="text/css">
-  <title>Chat Rooms</title>
+  <title>ChatRooms</title>
 </head>
 <body>
-  <header><h1>CHATTRUM</h1></header>
+  <header><h1>CHATROOMS</h1></header>
   
+  
+    <section class="form-container">
 
-  <section class="form-container">
-
-    <div id="signupForm"></div>
-
-    <div id="loginForm"></div>
-
-    <div>
-      <label for="roomName">Enter Room Name:</label>
-      <input type="text" id="roomName" />
-      <button id="createRoomBtn">Create Room</button>
+      <div id="signupForm"></div>
+      <div id="loginForm"></div>
+      
+    </section> 
+    <section id="roomLists">
+      <div id="createRoom">
+        <label for="roomName"></label>
+        <input type="text" name="Enter Room Name:" placeholder="Enter Room Name" id="roomName" />
+        <button id="createRoomBtn">Create Room</button>
+      </div>
+    
+      <div id="existingRooms">
+        <ul id="roomList"></ul>
+      </div>
+    </section>
+    <section id="chatSection" style="display: none;">
+      <div id="chatSectionInner">
+        <input type="text" id="sendMessage" />
+        <button id="sendBtn">Send</button>
+        <ul id="chatList"></ul>
     </div>
-  </section>
-    <div>
-      <h2>Existing Rooms:</h2>
-      <ul id="roomList"></ul>
-    </div>
-
-    <div id="chatSection" style="display: none;">
-      <input type="text" id="sendMessage" />
-      <button id="sendBtn">Send</button>
-      <ul id="chatList"></ul>
-    </div>
+    </section>
   
     <canvas id="myCanvas" class="canvas" width="500" height="500"></canvas>
 
-  
+  <div id="logoutBtn"></div>
   <script type="module" src="/main.js"></script>
 </body>
 </html>
