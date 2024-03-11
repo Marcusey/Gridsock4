@@ -347,7 +347,7 @@ socket.on('switchRoom', (newRoom) => {
 });
 
 // -------------------------------- RUTNÄT - CANVAS ----------------------------------//
-
+/*
 const canvas = document.getElementById('myCanvas');
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
@@ -378,5 +378,42 @@ for (let j = 0; j <= cols; j++) {
 
 ctx.strokeStyle = 'black';
 ctx.stroke();
-
+*/
 // -------------------------- SLUT RUTNÄT - CANVAS ----------------------------//
+
+
+// --------------------------- RUTNÄT BILD - FJÄRIL ----------------------------- //
+
+    const canvas = document.getElementById('butterflyCanvas');
+    const ctx = canvas.getContext('2d');
+    const cellSize = 20;
+    const colors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
+
+    const butterflyGrid = [
+      [0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0],
+      [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
+      [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
+      [0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0, 0],
+      [0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0, 0],
+      [0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0, 0],
+      [0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 0],
+      [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
+      [0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0, 0],
+      [0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ];
+
+    function drawButterfly() {
+      for (let i = 0; i < butterflyGrid.length; i++) {
+        for (let j = 0; j < butterflyGrid[i].length; j++) {
+          const colorIndex = butterflyGrid[i][j];
+          ctx.fillStyle = colors[colorIndex];
+          ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+    drawButterfly();
