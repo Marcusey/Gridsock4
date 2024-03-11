@@ -5,7 +5,7 @@ var logger = require("morgan");
 const app = require("express")();
 const server = require("http").createServer(app);
 var express = require("express");
-let cors = require("cors");
+const cors = require("cors");
 const mysql = require("mysql2");
 const CryptoJS = require("crypto-js");
 
