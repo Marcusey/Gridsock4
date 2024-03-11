@@ -66,9 +66,6 @@ input {
 input:focus {
   border-color: #5b5357;
 }
-.canvas {
-  border: 1px solid black;
-}
 a {
   display: inline-block;
   padding: 4px;
@@ -91,14 +88,21 @@ a:hover {
     flex-direction: row;
     justify-content: center;
 }
-#existingRooms ul {
+
+#existingRooms,
+#createRoom {
+  width: 48%; /* Each column takes up 48% of the roomLists width */
+}
+
+#existingRooms ul,
+#createRoom ul {
   list-style: none;
   padding: 0;
 }
-#existingRooms ul li {
+
+#existingRooms ul li,
+#createRoom ul li {
   margin-bottom: 5px;
-}
-#existingRooms ul li {
   text-align: left;
   font-weight: bold;
 }
@@ -108,7 +112,8 @@ a:hover {
   margin-right: 60px;
 }
 #chatSection {
-  width: 400px
+  width: 400px;
+  margin-top: 40px;
 }
 #chatSection ul {
   list-style: none;
@@ -118,4 +123,9 @@ a:hover {
   text-align: left;
   margin-left: 30px;
   margin-right: 60px;
+}
+
+.canvas {
+  border: 1px solid black;
+  display: none;
 }
