@@ -161,7 +161,13 @@ canvas {
   display: none; 
 }
 
-
 #startBtn {
   margin-bottom: 20px;
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: rgb(15, 162, 20);
+  color: white;
+  font-weight: bold;
 }
