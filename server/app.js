@@ -38,6 +38,8 @@ const io = require("socket.io")(server, {
   },
 });
 
+// ------------------- 
+
 // Skapa en mängd för att hålla reda på aktiva rum
 const activeRooms = new Set();
 // Skapa en Map för att hålla reda på aktiva användare och deras färger
@@ -86,10 +88,12 @@ io.on("connection", (socket) => {
     socket.join(room); // Anslut användaren till rummet
 
     activeRooms.add(room); // Lägg till rummet i mängden av aktiva rum
+    
 
     // Tilldela en slumpmässig färg åt användaren
     const userColor = getRandomColor();
     activeUsers.set(socket.id, { room: room, color: userColor });
+    
 
     console.log(`${socket.id} joined room: ${room}`);
     // Skicka ett chattmeddelande till alla i rummet när en användare går med
@@ -99,7 +103,7 @@ io.on("connection", (socket) => {
 });
 
 // Händelse när en användare skapar ett nytt rum
-socket.on('createRoom', (room) => {
+    socket.on('createRoom', (room) => {
     socket.join(room); // Anslut användaren till det nya rummet
 
     activeRooms.add(room); // Lägg till rummet i mängden av aktiva rum
@@ -113,12 +117,9 @@ socket.on('createRoom', (room) => {
     io.emit('roomList', Array.from(activeRooms));
 });
 
-  
-
   // Händelse när en användare skickar ett chattmeddelande
   socket.on('chat', (data) => {
     console.log('incoming chat', data);
-
 
     if (user) {
       io.to(data.room).emit('chat', {
