@@ -347,8 +347,8 @@ socket.on('switchRoom', (newRoom) => {
 });
 
 
-
 // -------------------------------- TOMT RUTNÄT - CANVAS ----------------------------------//
+
 const emptyCanvas = document.getElementById('myCanvas');
 const emptyCtx = emptyCanvas.getContext('2d');
 const cellSize = 20;
@@ -385,24 +385,24 @@ emptyCanvas.addEventListener('click', function(event) {
 
 // Butterfly
 
-const canvas = document.getElementById('butterflyCanvas');
-const ctx = canvas.getContext('2d');
+const butterflyCanvas = document.getElementById('butterflyCanvas');
+const ctx = butterflyCanvas.getContext('2d');
 const colors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
 
 const butterflyGrid = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0],
-  [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
-  [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
-  [0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0, 0],
-  [0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0, 0],
-  [0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0, 0],
-  [0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 0],
-  [0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0, 0],
-  [0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0, 0],
-  [0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0, 0],
+  [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0],
+  [0, 0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0],
+  [0, 0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 0, 0],
+  [0, 0, 0, 1, 2, 2, 1, 1, 1, 2, 2, 1, 0, 0, 0],
+  [0, 0, 0, 0, 1, 2, 3, 1, 3, 2, 1, 0, 0, 0, 0],
+  [0, 0, 0, 1, 3, 3, 3, 1, 3, 3, 3, 1, 0, 0, 0],
+  [0, 0, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0],
+  [0, 0, 1, 2, 2, 1, 0, 1, 0, 1, 2, 2, 1, 0, 0],
+  [0, 0, 1, 2, 1, 0, 0, 1, 0, 0, 1, 2, 1, 0, 0],
+  [0, 0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   
@@ -417,6 +417,7 @@ function drawButterfly() {
     }
   }
 }
+drawButterfly();
 
 // Circle
 
@@ -577,8 +578,6 @@ function getRandomColor() {
   return availableColors[randomIndex];
 }
 
-
-
 startBtn.addEventListener('click', function() {
   // Hämta en slumpmässig färg från butterflyGrid
   userColor = getRandomColor();
@@ -612,7 +611,6 @@ sendBtn.addEventListener('click', () => {
       }
   }
 });
-
     function showButterflyCanvas() {
       document.getElementById('butterflyCanvas').style.display = 'block';
     
@@ -623,5 +621,3 @@ sendBtn.addEventListener('click', () => {
         document.getElementById('butterflyCanvas').style.display = 'none';
       }, 5000);
     }
-
-    // ----------------------------
