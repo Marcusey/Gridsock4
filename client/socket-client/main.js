@@ -603,31 +603,27 @@ emptyCanvas.addEventListener('click', function(event) {
 // Lyssna på händelsen när användaren skickar meddelande
 sendBtn.addEventListener('click', () => {
   if (currentRoom) {
-      const message = sendMessage.value.trim();
-      if (message !== '') {
-          // Skicka chattmeddelandet till servern med användarens färg
-          socket.emit('chat', { room: currentRoom, message, color: userColor });
-          sendMessage.value = ''; // Återställ inputfältet
-      } else {
-          // Visa en varning om det är tomt
-          alert('Please type something first.');
-      }
+    const message = sendMessage.value.trim();
+    if (message !== '') {
+      // Skicka chattmeddelandet till servern med användarens färg
+      socket.emit('chat', { room: currentRoom, message, color: userColor });
+      sendMessage.value = ''; // Återställ inputfältet
+    }
   }
 });
-    function showButterflyCanvas() {
-      document.getElementById('butterflyCanvas').style.display = 'block';
-    
-      document.getElementById('myCanvas').style.display = 'none';
-    
-      setTimeout(function() {
-        document.getElementById('myCanvas').style.display = 'block';
-        document.getElementById('butterflyCanvas').style.display = 'none';
-      }, 5000);
-    }
 
 
+function showButterflyCanvas() {
+  document.getElementById('butterflyCanvas').style.display = 'block';
 
-    // -------------------
+  document.getElementById('myCanvas').style.display = 'none';
+
+  setTimeout(function() {
+    document.getElementById('myCanvas').style.display = 'block';
+    document.getElementById('butterflyCanvas').style.display = 'none';
+  }, 5000);
+}
+
 
 
 
