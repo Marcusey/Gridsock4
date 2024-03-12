@@ -91,7 +91,7 @@ a:hover {
 
 #existingRooms,
 #createRoom {
-  width: 48%; /* Each column takes up 48% of the roomLists width */
+  width: 48%;
 }
 
 #existingRooms ul,
@@ -123,17 +123,31 @@ a:hover {
   text-align: left;
   margin-left: 30px;
   margin-right: 60px;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid black;
 }
+#chatCol1,
+#chatCol2{
+  width: 48%;
+}
+
 
 /*
-#canvasGrid {
-  display: none;
-}
-
 .canvas {
   border: 1px solid black;
 }
+
+#canvasGrid {
+  display: none;
+}*/
 canvas {
   display: none; 
 }
-*/
+
+
+#startBtn {
+  margin-bottom: 20px;
+}

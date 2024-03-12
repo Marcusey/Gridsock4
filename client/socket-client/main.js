@@ -40,6 +40,8 @@ createRoomBtn.style.display = 'none';
 roomNameInput.style.display = 'none';
 roomList.style.display = 'none';
 chatSection.style.display = 'none';
+signupForm.style.display = 'none';
+//startBtn.style.display = 'none';
 
 
 
@@ -163,7 +165,6 @@ function printLogoutBtn(userName) {
     location.reload();
   });
    let logoutBtnContainer = document.getElementById('logoutBtn');
-   // Lägg till logoutBtn i logoutBtnContainer längst ner på sidan
    logoutBtnContainer.appendChild(logoutBtn);
 }
 
@@ -218,6 +219,9 @@ assignRandomColorToUser()
 
 */
 
+//-------------------
+
+
 
 
 
@@ -229,11 +233,9 @@ assignRandomColorToUser()
 
 // ------------------------- SKAPA RUM ----------------------------------- //
 
-// Lägg till en händelselyssnare för att skapa ett rum när knappen klickas på
 createRoomBtn.addEventListener('click', () => {
   const roomName = roomNameInput.value.trim();
   if (roomName !== '') {
-    // Skapa en länk för det nya rummet
     const roomLink = document.createElement('a');
     roomLink.href = '#'; // Länken kommer inte att leda någonstans för nu
     roomLink.innerText = roomName;
@@ -567,7 +569,7 @@ drawPokemon();
 // ----------------------- START BUTTON ----------------------------- //
 
 const startBtn = document.getElementById('startBtn');
-startBtn.innerText = 'start';
+startBtn.innerText = 'Start Game';
 
 let userColor = null;
 
@@ -584,6 +586,7 @@ startBtn.addEventListener('click', function() {
   console.log('Användaren fick den slumpmässiga färgen:', userColor);
   drawButterfly();
   showButterflyCanvas();
+  startBtn.style.display = 'none';
   // Här kan du implementera ytterligare logik för att använda den slumpmässiga färgen i din applikation
 });
 
@@ -621,3 +624,11 @@ sendBtn.addEventListener('click', () => {
         document.getElementById('butterflyCanvas').style.display = 'none';
       }, 5000);
     }
+
+
+
+    // -------------------
+
+
+
+
