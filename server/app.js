@@ -86,21 +86,34 @@ io.on("connection", (socket) => {
   // Händelse när en användare går med i ett rum
   socket.on('joinRoom', (room) => {
     socket.join(room); // Anslut användaren till rummet
-
+  
     activeRooms.add(room); // Lägg till rummet i mängden av aktiva rum
-    
-
+  
+    // Kontrollera om rummet har minst 4 användare
+    if (io.sockets.adapter.rooms.get(room).size >= 4) {
+      // Rummet har minst 4 användare, gör "Start Game" knappen tillgänglig
+      io.to(room).emit('enableStartGameButton');
+    }
+  
     // Tilldela en slumpmässig färg åt användaren
     const userColor = getRandomColor();
     activeUsers.set(socket.id, { room: room, color: userColor });
-    
+  
 
     console.log(`${socket.id} joined room: ${room}`);
     // Skicka ett chattmeddelande till alla i rummet när en användare går med
     io.to(room).emit('chat', { message: `User ${socket.id} joined the room`, room: room, userId: socket.id });
     // Skicka uppdaterad rumlista till alla anslutna klienter
     io.emit('roomList', Array.from(activeRooms));
-});
+  });
+  
+  // Socket.io event to handle drawing actions
+  socket.on('draw', (data) => {
+    // Broadcast drawing actions to all other users in the same room
+    socket.to(data.room).emit('draw', data);
+  });
+  
+  
 
 // Händelse när en användare skapar ett nytt rum
     socket.on('createRoom', (room) => {
