@@ -378,8 +378,15 @@ emptyCanvas.addEventListener('click', function(event) {
   const clickedRow = Math.floor(event.offsetY / cellSize);
   const clickedCol = Math.floor(event.offsetX / cellSize);
 
-  emptyCtx.fillStyle = 'black';
-  emptyCtx.fillRect(clickedCol * cellSize, clickedRow * cellSize, cellSize, cellSize);
+  // Send drawing actions to the server
+  socket.emit('draw', { room: currentRoom, row: clickedRow, col: clickedCol, color: userColor });
+});
+
+// Socket event to receive drawing actions from other users
+socket.on('draw', (data) => {
+  // Apply drawing actions to the canvas
+  emptyCtx.fillStyle = data.color;
+  emptyCtx.fillRect(data.col * cellSize, data.row * cellSize, cellSize, cellSize);
 });
 
   
@@ -567,9 +574,9 @@ drawPokemon();
 
 
 // ----------------------- START BUTTON ----------------------------- //
-
 const startBtn = document.getElementById('startBtn');
 startBtn.innerText = 'Start Game';
+startBtn.disabled = true; // Initially disable the button
 
 let userColor = null;
 
@@ -580,17 +587,15 @@ function getRandomColor() {
   return availableColors[randomIndex];
 }
 
+// Event listener for the "Start Game" button click
 startBtn.addEventListener('click', function() {
-  socket.on('gameStarted', () => {
-    socket.emit('startGame');
   // Hämta en slumpmässig färg från butterflyGrid
   userColor = getRandomColor();
   console.log('Användaren fick den slumpmässiga färgen:', userColor);
-  
   drawButterfly();
   showButterflyCanvas();
   startBtn.style.display = 'none';
-
+  
 });
 
 // Lyssna på händelsen när användaren klickar på emptyCanvas för att rita
@@ -601,12 +606,6 @@ emptyCanvas.addEventListener('click', function(event) {
   // Rita på emptyCanvas med användarens färg
   emptyCtx.fillStyle = userColor;
   emptyCtx.fillRect(clickedCol * cellSize, clickedRow * cellSize, cellSize, cellSize);
-});
-alert('The game has started!');
-drawButterfly();
-showButterflyCanvas();
-startBtn.style.display = 'none';
-// Eller, aktivera spellogiken eller visa spelinterfacet
 });
 
 // Lyssna på händelsen när användaren skickar meddelande
@@ -619,15 +618,18 @@ sendBtn.addEventListener('click', () => {
       sendMessage.value = ''; // Återställ inputfältet
     }
   }
-
 });
+
+// Socket.io event to enable the "Start Game" button
+socket.on('enableStartGameButton', () => {
+  startBtn.disabled = false; // Enable the button
+});
+
 
 
 function showButterflyCanvas() {
   document.getElementById('butterflyCanvas').style.display = 'block';
-
   document.getElementById('myCanvas').style.display = 'none';
-
   setTimeout(function() {
     document.getElementById('myCanvas').style.display = 'block';
     document.getElementById('butterflyCanvas').style.display = 'none';
