@@ -134,7 +134,13 @@ io.on("connection", (socket) => {
 socket.on('startGame', () => {
   // Skicka signalen till andra användare i samma rum
   socket.to(currentRoom).emit('gameStarted');
+
+
+  //drawButterfly();
+  //showButterflyCanvas();
+  //startBtn.style.display = 'none';
 });
+
 
 // ---------------- END START GAME ----------------- //
 
