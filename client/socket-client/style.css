@@ -175,13 +175,10 @@ canvas {
   cursor: pointer;
   display: inline-block;
   font-family: "Press Start 2P";
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: -.24px;
   margin: 0;
   outline: none;
-  height: 35px;
-  width: 100px;
+  height: 50px;
+  width: 120px;
   quotes: auto;
   text-align: center;
   text-decoration: none;
@@ -200,13 +197,6 @@ canvas {
 
 #startBtn:active {
   transform: scale(1.025);
-}
-
-@media (min-width: 768px) {
-  #startBtn {
-    font-size: 1.5rem;
-    padding: .75rem 2rem;
-  }
 }
 
 
