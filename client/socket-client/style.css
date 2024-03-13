@@ -145,7 +145,6 @@ a:hover {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: 1px solid black;
 }
 #chatCol1,
 #chatCol2{

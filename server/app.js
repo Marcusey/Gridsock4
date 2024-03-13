@@ -129,6 +129,15 @@ io.on("connection", (socket) => {
         color: user.color,
       });    
 
+      // ----------------- START GAME ------------------- //
+
+socket.on('startGame', () => {
+  // Skicka signalen till andra användare i samma rum
+  socket.to(currentRoom).emit('gameStarted');
+});
+
+// ---------------- END START GAME ----------------- //
+
     } else {
         console.error(`User ${socket.id} not found in activeUsers map.`);
     }
@@ -158,6 +167,15 @@ function getRandomColor() {
   }
   return color;
 }
+
+
+
+
+
+
+
+
+
 
 // --------------------- TESTAR SERVERN -------------------------- //
 app.get("/test", (req, res) => {
