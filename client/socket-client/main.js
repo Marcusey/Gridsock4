@@ -626,5 +626,68 @@ function showButterflyCanvas() {
 
 
 
+// ----------------------- SAVE / IMPORT - START ----------------------------- //
 
+// Create save button
+const saveButton = document.createElement('button');
+saveButton.innerText = 'Save Image';
+saveButton.style.display = 'none';
+saveButton.style.marginTop = '10px';
+document.body.appendChild(saveButton);
 
+// Function to save canvas image
+saveButton.addEventListener('click', function() {
+  const downloadLink = document.createElement('a');
+  downloadLink.download = 'canvas_image.png';
+  const dataURL = myCanvas.toDataURL('image/png');
+  downloadLink.href = dataURL;
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+});
+
+// Create import button
+const importButton = document.createElement('button');
+importButton.innerText = 'Import Image';
+importButton.style.display = 'none'; 
+importButton.style.marginTop = '10px';
+document.body.appendChild(importButton);
+
+// Import file settings
+const imageInput = document.createElement('input');
+imageInput.type = 'file';
+imageInput.accept = 'image/*';
+imageInput.style.display = 'none'; 
+imageInput.style.marginTop = '10px';
+document.body.appendChild(imageInput);
+importButton.addEventListener('click', function() {
+  imageInput.click();
+});
+
+// Function to handle image import
+imageInput.addEventListener('change', function (event) {
+  const file = event.target.files[0];
+  
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const image = new Image();
+      image.onload = function () {
+        const ctx = myCanvas.getContext('2d');
+        ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+        ctx.drawImage(image, 0, 0, myCanvas.width, myCanvas.height);
+        event.target.value = '';
+      };
+      image.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+// Show import button on click of startBtn
+startBtn.addEventListener('click', function() {
+  saveButton.style.display = 'block';
+  importButton.style.display = 'block';
+});
+
+// ----------------------- SAVE / IMPORT - END ----------------------------- //
