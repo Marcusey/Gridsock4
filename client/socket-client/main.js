@@ -576,7 +576,7 @@ drawPokemon();
 // ----------------------- START BUTTON ----------------------------- //
 const startBtn = document.getElementById('startBtn');
 startBtn.innerText = 'Start Game';
-startBtn.disabled = true; // Initially disable the button
+
 
 let userColor = null;
 
@@ -635,7 +635,6 @@ function showButterflyCanvas() {
     document.getElementById('butterflyCanvas').style.display = 'none';
   }, 5000);
 }
-
 
 
 // ----------------------- SAVE / IMPORT - START ----------------------------- //
