@@ -581,7 +581,8 @@ function getRandomColor() {
 }
 
 startBtn.addEventListener('click', function() {
-  ;
+  socket.on('gameStarted', () => {
+    socket.emit('startGame');
   // Hämta en slumpmässig färg från butterflyGrid
   userColor = getRandomColor();
   console.log('Användaren fick den slumpmässiga färgen:', userColor);
@@ -589,8 +590,7 @@ startBtn.addEventListener('click', function() {
   drawButterfly();
   showButterflyCanvas();
   startBtn.style.display = 'none';
-  
-  // Här kan du implementera ytterligare logik för att använda den slumpmässiga färgen i din applikation
+
 });
 
 // Lyssna på händelsen när användaren klickar på emptyCanvas för att rita
@@ -602,12 +602,10 @@ emptyCanvas.addEventListener('click', function(event) {
   emptyCtx.fillStyle = userColor;
   emptyCtx.fillRect(clickedCol * cellSize, clickedRow * cellSize, cellSize, cellSize);
 });
-socket.on('gameStarted', () => {
-  socket.emit('startGame')
 alert('The game has started!');
 drawButterfly();
-  showButterflyCanvas();
-  startBtn.style.display = 'none';
+showButterflyCanvas();
+startBtn.style.display = 'none';
 // Eller, aktivera spellogiken eller visa spelinterfacet
 });
 
