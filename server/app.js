@@ -259,5 +259,23 @@ app.post("/login", (req, res) => {
   });
 });
 
+// ------------------------------ SCORE----------------------
+
+app.post('/users/score', (req, res) => {
+  const { name, score } = req.body;
+
+  const sql = 'UPDATE users SET score = ? WHERE name = ?';
+
+  connection.query(sql, [score, name], (err, result) => {
+    if (err) {
+      console.log('err', err);
+      res.status(500).json({error: 'Server Error'});
+    } else {
+      console.log('Score added', result);
+      res.status(201).json({message: 'Score added successfully!'});
+    }
+  })
+})
+
 module.exports = app;
 server.listen(3000);
