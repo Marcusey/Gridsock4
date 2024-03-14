@@ -592,6 +592,18 @@ startBtn.addEventListener('click', function() {
   // Hämta en slumpmässig färg från butterflyGrid
   userColor = getRandomColor();
   console.log('Användaren fick den slumpmässiga färgen:', userColor);
+
+  let textDisplay = document.createElement('p');
+  textDisplay.textContent = 'Din tilldelade färg är: ';
+
+  let colorDisplay = document.createElement('div');
+  colorDisplay.style.width = '50px';
+  colorDisplay.style.height = '50px';
+  colorDisplay.style.backgroundColor = userColor;
+
+  document.body.appendChild(textDisplay);
+  document.body.appendChild(colorDisplay);
+
   drawButterfly();
   showButterflyCanvas();
   startBtn.style.display = 'none';
