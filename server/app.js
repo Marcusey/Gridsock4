@@ -98,11 +98,14 @@ io.on("connection", (socket) => {
     // Tilldela en slumpmässig färg åt användaren
     const userColor = getRandomColor();
     activeUsers.set(socket.id, { room: room, color: userColor });
-  
+
+
+  //------------------------------------------------------------------- //
+// -------------------------------- Joined the room --------------------- //
 
     console.log(`${socket.id} joined room: ${room}`);
     // Skicka ett chattmeddelande till alla i rummet när en användare går med
-    io.to(room).emit('chat', { message: `User ${socket.id} joined the room`, room: room, userId: socket.id });
+    io.to(room).emit('chat', { message: `${user.name} joined the room`, room: room});
     // Skicka uppdaterad rumlista till alla anslutna klienter
     io.emit('roomList', Array.from(activeRooms));
   });
@@ -129,6 +132,9 @@ io.on("connection", (socket) => {
     // Skicka uppdaterad rumlista till alla anslutna klienter
     io.emit('roomList', Array.from(activeRooms));
 });
+
+
+// ----------------------- skicka meddelande ------------------------------ //
 
   // Händelse när en användare skickar ett chattmeddelande
   socket.on('chat', (data) => {
