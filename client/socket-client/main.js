@@ -731,3 +731,40 @@ imageInput.addEventListener('change', function (event) {
 
 
 // ----------------------- SAVE / IMPORT - END ----------------------------- //
+
+// Calculate similarity
+// Add button when game starts
+socket.on('gameStarted', () => {
+  const doneBtn = document.createElement('button');
+  doneBtn.textContent = 'Done';
+  document.body.appendChild(doneBtn);
+
+  doneBtn.addEventListener('click', () => {
+    compareImages();
+  });
+});
+
+// Function to compare
+function compareImages() {
+  const importedImageData = myCanvas.getContext('2d').getImageData(0, 0, myCanvas.width, myCanvas.height).data;
+  const butterflyImageData = butterflyCanvas.getContext('2d').getImageData(0, 0, butterflyCanvas.width, butterflyCanvas.height).data;
+  let correctPixels = 0;
+  let totalPixels = 0;
+
+  for (let i = 0; i < importedImageData.length; i += 4) {
+    if (
+      importedImageData[i] === butterflyImageData[i] &&
+      importedImageData[i + 1] === butterflyImageData[i + 1] &&
+      importedImageData[i + 2] === butterflyImageData[i + 2] &&
+      importedImageData[i + 3] === butterflyImageData[i + 3]
+    ) {
+      correctPixels++;
+    }
+    totalPixels++;
+  }
+
+  const similarityPercentage = (correctPixels / totalPixels) * 100;
+  console.log(`Similarity Percentage: ${similarityPercentage}%`);
+
+  alert(`Similarity Percentage: ${similarityPercentage.toFixed(2)}%`);
+}
