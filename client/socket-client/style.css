@@ -3,17 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
 }
-/*
-a {
-  font-weight: bold;
-  color: #5b5357;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #ca54b7;
-}
-*/
-
 body {
   margin: 0;
   display: flex;
@@ -23,20 +12,16 @@ body {
   min-height: 100vh;
   background-color: #c8bdbd;
 }
-
 .press-start {
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
   font-style: normal;
 }
-
-
 h1 {
   font-family: "Press Start 2P";
   font-size: 3.2em;
   margin-bottom: 0;
 }
-
 h2 {
   margin-top: 0;
   font-family: "Press Start 2P";
@@ -66,9 +51,7 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-  
 }
-
 button:hover {
   border-color: #5b5357;
 }
@@ -106,12 +89,10 @@ a:hover {
     flex-direction: row;
     justify-content: center;
 }
-
 #existingRooms,
 #createRoom {
   width: 48%;
 }
-
 #existingRooms ul,
 #createRoom ul {
   list-style: none;
@@ -150,21 +131,9 @@ a:hover {
 #chatCol2{
   width: 48%;
 }
-
-
-/*
-.canvas {
-  border: 1px solid black;
-}
-
-#canvasGrid {
-  display: none;
-}*/
-
 canvas {
   display: none; 
 }
-
 #startBtn {
   appearance: none;
   background-color: #b8e6aa;
@@ -188,13 +157,11 @@ canvas {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
-
 #startBtn:hover {
   background-color: #94f894;
   box-shadow: #00c427 0 -6px 8px inset;
   transform: scale(1.1);
 }
-
 #startBtn:active {
   transform: scale(1.025);
 }

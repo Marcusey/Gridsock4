@@ -515,7 +515,6 @@ for (let i = 0; i < pokemonGrid.length; i++) {
 }
 drawPokemon();
 
-
 // ----------------------- START BUTTON ----------------------------- //
 const startBtn = document.getElementById('startBtn');
 startBtn.innerText = 'Start Game';
@@ -567,7 +566,6 @@ function startGame() {
 
 }
 
-
 // Lyssna på händelsen när användaren klickar på emptyCanvas för att rita
 emptyCanvas.addEventListener('click', function(event) {
   const clickedRow = Math.floor(event.offsetY / cellSize);
@@ -594,8 +592,6 @@ sendBtn.addEventListener('click', () => {
 socket.on('enableStartGameButton', () => {
   startBtn.disabled = false; // Enable the button
 });
-
-
 
 function showButterflyCanvas() {
   document.getElementById('butterflyCanvas').style.display = 'block';
