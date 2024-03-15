@@ -168,69 +168,6 @@ function printLogoutBtn(userName) {
    logoutBtnContainer.appendChild(logoutBtn);
 }
 
-
-/*
-// --------------------------- TILLDELA FÄRG ----------------------------- //
-
-const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
-
-function assignRandomColorToUser() {
-    const randomIndex = Math.floor(Math.random() * 4);
-
-    return colors[randomIndex];
-}
-const userColor = assignRandomColorToUser();
-console.log(userColor); // Skriver ut den tilldelade färgen för användaren
-
-// ------------------------- FORTSÄTTNING ------------------------ //
-
-// Lyssna på händelsen när en ny användare ansluter
-socket.on('connect', () => {
-  // Tilldela den slumpmässiga färgen till den anslutna användaren
-  const userColor = assignRandomColorToUser();
-
-  // Skicka färgen till den anslutna klienten
-  socket.emit('assignColor', userColor);
-});
-socket.on('assignColor', (userColor) => {
-  console.log('Received assigned color:', userColor);
-});
-
-// ------------------------- FORTSÄTTNING TILLDELNING ------------------------ //
-
-// Lyssna på händelsen när en färg tilldelas till användaren på klienten
-socket.on('assignColor', (userColor) => {
-  console.log('Received assigned color:', userColor);
-
-  let messageElement = document.createElement('p');
-  let userName = document.getElementById('userName').value;
-  
-  messageElement.textContent = `${inputName.value}, du får `;
-  let coloredText = document.createElement('span');
-  messageElement.id ="userName";
-  coloredText.style.color = userColor;
-  coloredText.textContent = 'röd';
-  messageElement.appendChild(coloredText);
-  messageElement.textContent += ' färg.';
-  document.body.appendChild(messageElement);
-});
-
-assignRandomColorToUser()
-
-*/
-
-//-------------------
-
-
-
-
-
-
-
-
-
-
-
 // ------------------------- SKAPA RUM ----------------------------------- //
 
 createRoomBtn.addEventListener('click', () => {
