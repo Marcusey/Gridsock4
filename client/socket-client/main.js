@@ -394,6 +394,7 @@ socket.on('draw', (data) => {
   emptyCtx.fillRect(data.col * cellSize, data.row * cellSize, cellSize, cellSize);
 });
 
+
   
 // --------------------------- RUTNÄT BILDER ---------------------------------//
 
@@ -622,6 +623,10 @@ function startGame() {
   drawButterfly();
   showButterflyCanvas();
   startBtn.style.display = 'none';
+  setTimeout(() => {
+    emptyCanvas.style.display = 'none';
+    console.log('Spelet är slut!');
+  }, 60000);
 
 }
 

@@ -164,11 +164,18 @@ io.on("connection", (socket) => {
           currentRoom = room;
           
           io.to(room).emit('gameStarted');
+          io.to(room).emit('startTimer');
+
         } else {
           socket.emit('notEnoughPlayers');
         }
         
       });
+
+      socket.on('endGame', () => {
+        const room = activeUsers.get(socket.id).room;
+        io.to(room).emit('gameEnded');
+      })
   
   // ---------------- END START GAME ----------------- //
   
