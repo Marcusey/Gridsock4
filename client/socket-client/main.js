@@ -585,12 +585,20 @@ startBtn.innerText = 'Start Game';
 startBtn.disabled = true; // Initially disable the button
 
 let userColor = null;
+const usedColors = new Set(); //---------------------------------------------------------------------------väljer nytt set färger
 
 // Skapa en funktion för att generera en slumpmässig färg från butterflyGrid-färger
 function getRandomColor() {
   const availableColors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
-  const randomIndex = Math.floor(Math.random() * availableColors.length);
-  return availableColors[randomIndex];
+  const availableColorsFiltered = availableColors.filter(color => !usedColors.has(color)); //--------------Filter out used colors
+  if (availableColorsFiltered.length === 0) {
+    usedColors.clear(); //---------------------------------------------------------------------------------nollställer usedColors om alla är använda
+  }
+
+  const randomIndex = Math.floor(Math.random() * availableColorsFiltered.length);
+  const selectedColor = availableColorsFiltered[randomIndex];
+  usedColors.add(selectedColor); //-------------------------------------------------------------------------välj valda färger till använda färger
+  return selectedColor;
 }
 
 // Event listener for the "Start Game" button click
