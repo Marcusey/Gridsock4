@@ -148,19 +148,35 @@ io.on("connection", (socket) => {
         color: user.color,
       });    
 
-      // ----------------- START GAME ------------------- //
-
-socket.on('startGame', () => {
-  // Skicka signalen till andra användare i samma rum
-  socket.to(currentRoom).emit('gameStarted');
-});
-
-// ---------------- END START GAME ----------------- //
-
     } else {
         console.error(`User ${socket.id} not found in activeUsers map.`);
     }
   });
+  
+      // ----------------- START GAME ------------------- //
+ 
+
+      socket.on('startGame', () => {
+        const room = activeUsers.get(socket.id).room;
+        const roomSize = io.sockets.adapter.rooms.get(room).size;
+
+        if (roomSize >= 4) {
+          currentRoom = room;
+          
+          io.to(room).emit('gameStarted');
+          io.to(room).emit('startTimer');
+        } else {
+          socket.emit('notEnoughPlayers');
+        }
+        
+      });
+
+      socket.on('endGame', () => {
+        const room = activeUsers.get(socket.id).room;
+        io.to(room).emit('gameEnded');
+      })
+  
+  // ---------------- END START GAME ----------------- //
   
 
   // Händelse när en användare kopplar från
@@ -186,14 +202,6 @@ function getRandomColor() {
   }
   return color;
 }
-
-
-
-
-
-
-
-
 
 
 // --------------------- TESTAR SERVERN -------------------------- //

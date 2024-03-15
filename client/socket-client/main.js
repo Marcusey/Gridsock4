@@ -292,6 +292,11 @@ socket.on('switchRoom', (newRoom) => {
   currentRoom = newRoom;
 });
 
+socket.on('gameStarted', () => {
+  startGame();
+});
+
+
 // Funktion för att uppdatera rumlistan på användargränssnittet
 function updateRoomList(rooms) {
   roomList.innerHTML = '';
@@ -388,6 +393,7 @@ socket.on('draw', (data) => {
   emptyCtx.fillStyle = data.color;
   emptyCtx.fillRect(data.col * cellSize, data.row * cellSize, cellSize, cellSize);
 });
+
 
   
 // --------------------------- RUTNÄT BILDER ---------------------------------//
@@ -588,7 +594,17 @@ function getRandomColor() {
 }
 
 // Event listener for the "Start Game" button click
-startBtn.addEventListener('click', function() {
+
+  startBtn.addEventListener('click', function() {
+
+    startGame();
+    socket.emit('startGame');
+    saveButton.style.display = 'block';
+    importButton.style.display = 'block';
+  
+  });
+
+function startGame() {
   // Hämta en slumpmässig färg från butterflyGrid
   userColor = getRandomColor();
   console.log('Användaren fick den slumpmässiga färgen:', userColor);
@@ -607,8 +623,13 @@ startBtn.addEventListener('click', function() {
   drawButterfly();
   showButterflyCanvas();
   startBtn.style.display = 'none';
-  
-});
+  setTimeout(() => {
+    emptyCanvas.style.display = 'none';
+    console.log('Spelet är slut!');
+  }, 60000);
+
+}
+
 
 // Lyssna på händelsen när användaren klickar på emptyCanvas för att rita
 emptyCanvas.addEventListener('click', function(event) {
@@ -708,10 +729,5 @@ imageInput.addEventListener('change', function (event) {
   }
 });
 
-// Show import button on click of startBtn
-startBtn.addEventListener('click', function() {
-  saveButton.style.display = 'block';
-  importButton.style.display = 'block';
-});
 
 // ----------------------- SAVE / IMPORT - END ----------------------------- //
