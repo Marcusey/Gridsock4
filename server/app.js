@@ -165,6 +165,7 @@ io.on("connection", (socket) => {
           
           io.to(room).emit('gameStarted');
           io.to(room).emit('startTimer');
+
         } else {
           socket.emit('notEnoughPlayers');
         }
