@@ -520,21 +520,25 @@ const startBtn = document.getElementById('startBtn');
 startBtn.innerText = 'Start Game';
 startBtn.disabled = true; // Initially disable the button
 
-let userColor = null;
-const usedColors = new Set(); //---------------------------------------------------------------------------väljer nytt set färger
+//------------------------ COLOR ARRAY ------------------------------ //
+const availableColors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
 
-// Skapa en funktion för att generera en slumpmässig färg från butterflyGrid-färger
+let userColor = [];
+
 function getRandomColor() {
-  const availableColors = ['#FFFFFF', '#00FF00', '#0000FF', '#FFFF00'];
-  const availableColorsFiltered = availableColors.filter(color => !usedColors.has(color)); //--------------Filter out used colors
-  if (availableColorsFiltered.length === 0) {
-    usedColors.clear(); //---------------------------------------------------------------------------------nollställer usedColors om alla är använda
+  if (userColor.length === availableColors.length) {
+    userColor = [];
   }
 
-  const randomIndex = Math.floor(Math.random() * availableColorsFiltered.length);
-  const selectedColor = availableColorsFiltered[randomIndex];
-  usedColors.add(selectedColor); //-------------------------------------------------------------------------välj valda färger till använda färger
-  return selectedColor;
+  let randomColor;
+
+  do {
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    randomColor = availableColors[randomIndex];
+  } while (userColor.includes(randomColor));
+
+  userColor.push(randomColor);
+  return randomColor;
 }
 
 // Event listener for the "Start Game" button click
