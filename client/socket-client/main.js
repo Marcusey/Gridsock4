@@ -551,6 +551,8 @@ function startGame() {
   let colorDisplay = document.createElement('div');
   colorDisplay.style.width = '50px';
   colorDisplay.style.height = '50px';
+  colorDisplay.style.borderRadius = '10px';
+  colorDisplay.style.marginBottom = ' 15px';
   colorDisplay.style.backgroundColor = userColor;
 
   document.body.appendChild(textDisplay);
