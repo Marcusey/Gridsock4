@@ -1,4 +1,4 @@
-# Gridsock4
+# Gridsock4 Gruppuppgift: Gridpainter
 
 
 ## För att starta klienten, skriv i terminalen i client\socket-client:
@@ -21,9 +21,14 @@ npm run dev
 ### Öppna clientsidan i webbläsaren:
 http://localhost:5173/
 
+### Databasens lösenord m.m:
+- host: "localhost",
+- port: "3306",
+- user: "gridsock4",
+- password: "gridsock4",
+- database: "gridsock4",
 
-
-# Gruppuppgift: Gridpainter
+#  Beskrivning av uppgift:
 
 ## Verktyget
 
